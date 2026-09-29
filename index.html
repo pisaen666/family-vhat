@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เว็บบอร์ด พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์</title>
+  <meta name="description" content="พื้นที่ส่วนตัวสำหรับครอบครัวและเพื่อนๆ — เว็บบอร์ด พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์ สำหรับพูดคุย แบ่งปันความทรงจำ และนัดหมายกิจกรรม">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&display=swap" rel="stylesheet">
+  <style>
+    /* ======================================================
+       DESIGN TOKENS — Scholar's Scrapbook
+       ====================================================== */
+    :root {
+      --color-primary: #152c24;
+      --color-primary-container: #2b4239;
+      --color-on-primary: #ffffff;
+      --color-on-primary-container: #95aea2;
+      --color-secondary: #ac3231;
+      --color-secondary-container: #fd6d67;
+      --color-on-secondary: #ffffff;
+      --color-on-secondary-container: #6d000c;
+      --color-tertiary: #002948;
+      --color-tertiary-container: #00406a;
+      --color-on-tertiary-container: #6caded;
+      --color-background: #fff9ed;
+      --color-surface: #fff9ed;
+      --color-surface-dim: #e2dabf;
+      --color-surface-low: #fcf3d8;
+      --color-surface-container: #f7eed2;
+      --color-surface-high: #f1e8cd;
+      --color-surface-highest: #ebe2c8;
+      --color-surface-variant: #ebe2c8;
+      --color-surface-tint: #4c6359;
+      --color-on-surface: #1f1c0b;
+      --color-on-surface-variant: #424845;
+      --color-outline: #727975;
+      --color-outline-variant: #c2c8c3;
+      --color-primary-fixed: #cee9dc;
+      --color-primary-fixed-dim: #b2ccc0;
+      --color-inverse-surface: #35301e;
+      --color-desk: #c4aa8f;
+
+      --font-headline: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'Work Sans', sans-serif;
+      --font-mono: 'Courier Prime', monospace;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 8px;
+
+      --shadow-paper: -1px 1px 0 #ebe2c8, -2px 2px 0 #ebe2c8, -3px 3px 0 #ebe2c8, -4px 4px 6px rgba(0,0,0,0.12);
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+      --shadow-polaroid: 2px 4px 12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-desk);
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E"),
+        repeating-linear-gradient(92deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(2deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 80px);
+      color: var(--color-on-surface);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    .nav {
+      background-color: var(--color-surface-highest);
+      border-bottom: 2px solid var(--color-surface-tint);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-headline); font-size: 22px; font-weight: 800;
+      color: var(--color-primary); text-decoration: none;
+      letter-spacing: -0.02em; font-style: italic; white-space: nowrap;
+    }
+    .nav-tabs { display: flex; gap: 4px; align-items: center; }
+    .nav-tab {
+      font-family: var(--font-mono); font-size: 13px; padding: 6px 14px;
+      border: none; background: transparent; cursor: pointer;
+      color: var(--color-on-surface-variant);
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s; white-space: nowrap;
+    }
+    .nav-tab:hover { color: var(--color-secondary); }
+    .nav-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 700; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .search-wrap { position: relative; }
+    .search-wrap .icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--color-outline); pointer-events: none; }
+    .search-input {
+      background: var(--color-surface); border: 1px solid var(--color-outline-variant);
+      border-radius: 999px; padding: 6px 14px 6px 36px;
+      font-family: var(--font-mono); font-size: 13px; width: 180px;
+      transition: border-color 0.15s, width 0.25s; color: var(--color-on-surface);
+    }
+    .search-input:focus { outline: none; border-color: var(--color-primary); width: 220px; }
+
+    /* BUTTONS */
+    .btn {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      padding: 7px 18px; border-radius: var(--radius-sm); border: none;
+      cursor: pointer; transition: background-color 0.15s, transform 0.1s, box-shadow 0.15s;
+      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background-color: var(--color-primary); color: var(--color-on-primary); box-shadow: 0 2px 4px rgba(21,44,36,0.3); }
+    .btn-primary:hover { background-color: var(--color-primary-container); }
+    .btn-secondary { background-color: var(--color-secondary); color: var(--color-on-secondary); }
+    .btn-secondary:hover { background-color: #8e2928; }
+    .btn-ghost { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-outline-variant); }
+    .btn-ghost:hover { background: var(--color-surface-high); border-color: var(--color-primary); }
+    .btn-sm { padding: 4px 12px; font-size: 12px; }
+
+    /* Material icons */
+    .ms { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal;
+      font-size: inherit; line-height: 1; letter-spacing: normal; text-transform: none;
+      display: inline-block; white-space: nowrap; direction: ltr; vertical-align: middle; }
+
+    /* LAYOUT */
+    .page-wrapper { max-width: 1100px; margin: 0 auto; padding: 24px; padding-bottom: 90px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ===================== HOME ===================== */
+    .home-layout { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+
+    /* ID Card */
+    .id-card {
+      background: var(--color-surface); border: 1px solid var(--color-outline-variant);
+      padding: 24px 20px; position: relative; transform: rotate(-1deg);
+      box-shadow: var(--shadow-paper); transition: transform 0.2s;
+    }
+    .id-card:hover { transform: rotate(0deg); }
+    .id-card-pin {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      width: 28px; height: 28px; border-radius: 50%; background: var(--color-secondary);
+      border: 2px solid var(--color-on-secondary-container);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center;
+    }
+    .id-card-pin::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .id-card-header { text-align: center; padding-bottom: 16px; border-bottom: 1px dashed var(--color-outline-variant); margin-bottom: 16px; }
+    .id-card-year { font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.06em; }
+    .id-card-id { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); }
+    .photo-wrap { position: relative; display: inline-block; margin: 8px auto 16px; }
+    .tape { position: absolute; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.6); backdrop-filter: blur(2px); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .tape-top { top: -8px; right: -8px; width: 48px; height: 16px; transform: rotate(12deg); }
+    .tape-bottom { bottom: -6px; left: -8px; width: 44px; height: 14px; transform: rotate(-6deg); }
+    .id-photo-placeholder { width: 110px; height: 140px; background: var(--color-surface-high); border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; font-size: 48px; color: var(--color-surface-tint); }
+    .id-name { font-family: var(--font-headline); font-size: 22px; font-weight: 700; color: var(--color-on-surface); margin-bottom: 4px; }
+    .id-quote { font-family: var(--font-headline); font-size: 13px; color: var(--color-secondary); font-style: italic; margin-bottom: 16px; padding: 0 8px; line-height: 1.4; }
+    .id-fields { width: 100%; }
+    .id-field { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--color-surface-variant); gap: 8px; }
+    .id-field:last-child { border-bottom: none; }
+    .id-field-label { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); white-space: nowrap; }
+    .id-field-value { font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-align: right; }
+
+    /* Chalkboard */
+    .chalkboard { background: #1e3a2f; border: 6px solid #3a2615; border-radius: 2px; padding: 16px; box-shadow: inset 0 0 20px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2); position: relative; overflow: hidden; }
+    .chalkboard::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.065' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E"); pointer-events: none; }
+    .chalkboard-title { font-family: var(--font-headline); font-size: 13px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px; }
+    .chalk-stat { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .chalk-num { font-family: var(--font-headline); font-size: 28px; font-weight: 800; color: #cee9dc; line-height: 1; }
+    .chalk-label { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.3; }
+
+    /* Online members */
+    .online-members { background: var(--color-surface-container); border: 1px solid var(--color-outline-variant); padding: 14px; box-shadow: var(--shadow-card); }
+    .online-title { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .online-dot { width: 8px; height: 8px; background: #2e7d32; border-radius: 50%; animation: pulse-green 2s infinite; }
+    @keyframes pulse-green { 0%,100% { box-shadow: 0 0 0 0 rgba(46,125,50,0.4); } 50% { box-shadow: 0 0 0 4px rgba(46,125,50,0); } }
+    .member-chip { display: inline-flex; align-items: center; gap: 5px; background: var(--color-surface-high); border: 1px solid var(--color-outline-variant); border-radius: 2px; padding: 3px 8px; font-family: var(--font-mono); font-size: 11px; color: var(--color-on-surface); margin: 3px 2px; cursor: pointer; transition: background 0.15s; }
+    .member-chip:hover { background: var(--color-surface-variant); }
+    .member-avatar-sm { width: 18px; height: 18px; border-radius: 50%; background: var(--color-primary-fixed); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--color-primary); overflow: hidden; flex-shrink: 0; }
+
+    /* Notebook paper */
+    .notebook-paper { background-color: #f7eed2; background-image: linear-gradient(90deg, transparent 79px, rgba(172,50,49,0.35) 79px, rgba(172,50,49,0.35) 81px, transparent 81px), linear-gradient(#cee9dc 0.1em, transparent 0.1em); background-size: 100% 28px; position: relative; padding: 20px 20px 20px 96px; transform: rotate(0.4deg); border: 1px solid var(--color-outline-variant); box-shadow: 2px 3px 8px rgba(0,0,0,0.08), 0 0 12px rgba(0,0,0,0.04) inset; min-height: 420px; }
+    .notebook-paper::before { content: ''; position: absolute; left: 36px; top: 0; bottom: 0; width: 2px; background: rgba(172,50,49,0.4); }
+    .forum-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--color-surface-tint); }
+    .forum-title { font-family: var(--font-headline); font-size: 20px; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 8px; }
+
+    /* Posts */
+    .post-card { position: relative; padding: 14px 0; border-bottom: 1px dashed var(--color-outline-variant); }
+    .post-card:last-child { border-bottom: none; }
+    .post-pin { position: absolute; left: -42px; top: 16px; color: var(--color-surface-tint); font-size: 18px; }
+    .post-date { font-family: var(--font-mono); font-size: 11px; color: var(--color-on-surface-variant); margin-bottom: 4px; }
+    .post-title { font-family: var(--font-headline); font-size: 18px; font-weight: 600; color: var(--color-on-surface); margin-bottom: 6px; cursor: pointer; transition: color 0.15s; line-height: 1.3; }
+    .post-title:hover { color: var(--color-secondary); }
+    .post-body { font-family: var(--font-body); font-size: 14px; color: var(--color-on-surface); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .post-actions { display: flex; align-items: center; gap: 16px; margin-top: 10px; }
+    .post-action-btn { font-family: var(--font-mono); font-size: 12px; background: none; border: none; cursor: pointer; color: var(--color-primary); display: flex; align-items: center; gap: 4px; transition: color 0.15s, transform 0.1s; padding: 2px 0; }
+    .post-action-btn:hover { color: var(--color-secondary); transform: scale(1.05); }
+    .post-action-btn.liked { color: var(--color-secondary); }
+    .post-author-chip { display: flex; align-items: center; gap: 5px; margin-bottom: 6px; }
+    .author-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--color-primary-container); color: var(--color-on-primary-container); font-family: var(--font-headline); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .author-name { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--color-surface-tint); }
+    .load-more-btn { font-family: var(--font-headline); font-size: 16px; background: none; border: none; cursor: pointer; color: var(--color-surface-tint); text-decoration: underline; text-decoration-style: wavy; margin-top: 16px; transition: color 0.15s; display: block; width: 100%; text-align: center; }
+    .load-more-btn:hover { color: var(--color-primary); }
+
+    /* ===================== GALLERY ===================== */
+    .gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .gallery-title { font-family: var(--font-headline); font-size: 28px; font-weight: 800; color: var(--color-primary); letter-spacing: -0.02em; }
+    .gallery-subtitle { font-family: var(--font-mono); font-size: 13px; color: var(--color-on-surface-variant); margin-top: 2px; }
+
+    /* Filter bar */
+    .gallery-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+    .filter-chip {
+      font-family: var(--font-mono); font-size: 12px; padding: 5px 14px;
+      border-radius: 999px; border: 1.5px solid var(--color-outline-variant);
+      background: var(--color-surface); color: var(--color-on-surface-variant);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip.active { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); font-weight: 700; }
+    .gallery-count { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); margin-left: auto; }
+
+    /* Masonry grid */
+    .gallery-grid { columns: 3; column-gap: 28px; }
+    @media (max-width: 750px) { .gallery-grid { columns: 2; } }
+    @media (max-width: 480px) { .gallery-grid { columns: 1; } }
+    .polaroid-wrap { break-inside: avoid; margin-bottom: 28px; position: relative; }
+    .polaroid-tape { position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 60px; height: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(3px); box-shadow: 0 1px 3px rgba(0,0,0,0.12); z-index: 2; }
+    .polaroid-img-wrap { background: white; padding: 8px 8px 40px; box-shadow: var(--shadow-polaroid); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; position: relative; }
+    .polaroid-wrap:nth-child(odd) .polaroid-img-wrap { transform: rotate(-2deg); }
+    .polaroid-wrap:nth-child(even) .polaroid-img-wrap { transform: rotate(1.5deg); }
+    .polaroid-wrap:nth-child(3n) .polaroid-img-wrap { transform: rotate(3deg); }
+    .polaroid-img-wrap:hover { transform: rotate(0deg) scale(1.03) !important; box-shadow: 4px 8px 20px rgba(0,0,0,0.2); z-index: 10; position: relative; }
+    .polaroid-img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--color-surface-high); }
+    .polaroid-img.emoji-img { display: flex; align-items: center; justify-content: center; font-size: 64px; }
+    .polaroid-caption { font-family: var(--font-headline); font-size: 13px; text-align: center; color: var(--color-on-surface); margin-top: 4px; padding: 0 4px; line-height: 1.3; }
+    .polaroid-author { font-family: var(--font-mono); font-size: 10px; text-align: center; color: var(--color-on-surface-variant); margin-top: 1px; }
+    .polaroid-likes {
+      position: absolute; bottom: 6px; right: 8px;
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--color-on-surface-variant);
+      display: flex; align-items: center; gap: 3px;
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--color-outline-variant);
+      border-radius: var(--radius-md);
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--color-surface-container);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-zone.drag-over {
+      border-color: var(--color-primary);
+      background: var(--color-primary-fixed);
+    }
+    .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-zone-icon { font-size: 48px; display: block; margin-bottom: 12px; }
+    .upload-zone-text { font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px; }
+    .upload-zone-sub { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); }
+
+    /* Photo preview in dialog */
+    .photo-preview-polaroid {
+      background: white;
+      padding: 10px 10px 40px;
+      box-shadow: var(--shadow-polaroid);
+      max-width: 260px;
+      margin: 0 auto;
+      transform: rotate(-1deg);
+    }
+    .photo-preview-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: var(--color-surface-high);
+    }
+    .photo-preview-empty {
+      width: 100%;
+      height: 200px;
+      background: var(--color-surface-high);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      color: var(--color-outline);
+    }
+
+    /* Lightbox full photo */
+    .lightbox-real-img {
+      width: 100%;
+      max-height: 56vh;
+      object-fit: contain;
+      display: block;
+      background: #111;
+    }
+    .lightbox-emoji-img {
+      width: 100%;
+      height: 56vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 100px;
+      background: var(--color-surface-highest);
+    }
+
+    /* Lightbox comments */
+    .lb-comments { max-height: 180px; overflow-y: auto; padding: 12px 16px; background: var(--color-surface-container); }
+    .lb-comment { display: flex; gap: 8px; margin-bottom: 10px; }
+    .lb-comment-body { flex: 1; }
+    .lb-comment-author { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--color-primary); }
+    .lb-comment-text { font-family: var(--font-body); font-size: 13px; color: var(--color-on-surface); line-height: 1.45; }
+    .lb-comment-time { font-family: var(--font-mono); font-size: 10px; color: var(--color-on-surface-variant); }
+    .lb-input-wrap { display: flex; gap: 8px; padding: 10px 16px; background: var(--color-surface); border-top: 1px solid var(--color-outline-variant); }
+    .lb-input { flex: 1; border: 1px solid var(--color-outline-variant); background: var(--color-surface-container); padding: 7px 12px; font-family: var(--font-body); font-size: 13px; color: var(--color-on-surface); border-radius: var(--radius-sm); }
+    .lb-input:focus { outline: none; border-color: var(--color-primary); }
+
+    /* Empty gallery state */
+    .gallery-empty { text-align: center; padding: 60px 20px; color: var(--color-on-surface-variant); font-family: var(--font-mono); }
+    .gallery-empty-icon { font-size: 64px; display: block; margin-bottom: 16px; }
+    .gallery-empty-text { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--color-primary); font-family: var(--font-headline); }
+
+    /* ===================== ACTIVITIES ===================== */
+    .activities-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+    @media (max-width: 800px) { .activities-layout { grid-template-columns: 1fr; } }
+
+    .event-card { background: var(--color-surface); border: 1px solid var(--color-outline-variant); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow-paper); position: relative; transition: transform 0.2s; }
+    .event-card:hover { transform: translateY(-2px); }
+    .event-badge { position: absolute; top: -1px; left: 20px; background: var(--color-secondary); color: var(--color-on-secondary); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 2px 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .event-badge.mine { background: var(--color-primary); }
+    .event-title { font-family: var(--font-headline); font-size: 20px; font-weight: 700; color: var(--color-primary); margin-top: 14px; margin-bottom: 6px; }
+    .event-meta { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 10px; }
+    .event-meta span { display: flex; align-items: center; gap: 4px; }
+    .event-body { font-family: var(--font-body); font-size: 14px; line-height: 1.65; color: var(--color-on-surface); margin-bottom: 14px; }
+    .event-going { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .going-avatars { display: flex; }
+    .going-avatar { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-surface); background: var(--color-primary-container); color: var(--color-primary); font-family: var(--font-headline); font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-left: -8px; overflow: hidden; }
+    .going-avatar:first-child { margin-left: 0; }
+    .going-count { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); }
+    .event-delete-btn { position: absolute; top: 14px; right: 16px; background: none; border: none; cursor: pointer; font-size: 16px; opacity: 0.3; transition: opacity 0.15s; padding: 2px 6px; }
+    .event-delete-btn:hover { opacity: 1; }
+
+    /* Event type selector */
+    .event-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .event-type-btn {
+      border: 2px solid var(--color-outline-variant); background: var(--color-surface-container);
+      padding: 10px 6px; text-align: center; cursor: pointer; border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant);
+      transition: all 0.15s;
+    }
+    .event-type-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .event-type-btn.selected { border-color: var(--color-primary); background: var(--color-primary); color: var(--color-on-primary); font-weight: 700; }
+    .event-type-btn .type-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+
+    /* Form row */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; display: block; }
+
+    /* Events empty state */
+    .events-empty { text-align: center; padding: 60px 20px; color: var(--color-on-surface-variant); }
+    .events-empty-icon { font-size: 56px; display: block; margin-bottom: 12px; }
+    .events-empty-text { font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px; }
+
+    /* Mini Calendar */
+    .mini-calendar { background: var(--color-primary); color: var(--color-on-primary); padding: 16px; box-shadow: var(--shadow-paper); margin-bottom: 16px; }
+    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .cal-month { font-family: var(--font-headline); font-size: 16px; font-weight: 700; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .cal-day-name { font-family: var(--font-mono); font-size: 10px; text-align: center; color: var(--color-primary-fixed-dim); padding: 2px 0; }
+    .cal-day { font-family: var(--font-mono); font-size: 12px; text-align: center; padding: 5px 2px; border-radius: 2px; cursor: pointer; transition: background 0.15s; color: rgba(255,255,255,0.8); position: relative; }
+    .cal-day:hover { background: rgba(255,255,255,0.15); }
+    .cal-day.today { background: var(--color-secondary); color: white; font-weight: 700; }
+    .cal-day.has-event::after { content: '•'; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); font-size: 8px; color: #9bcbff; }
+    .cal-day.empty { cursor: default; color: transparent; }
+
+    /* ===================== MEMBERS ===================== */
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .member-card { background: var(--color-surface); border: 1px solid var(--color-outline-variant); padding: 20px 16px; text-align: center; position: relative; box-shadow: var(--shadow-paper); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .member-card:hover { transform: translateY(-4px) rotate(0.5deg); box-shadow: -1px 5px 0 #ebe2c8, -2px 6px 0 #ebe2c8, -3px 7px 12px rgba(0,0,0,0.15); }
+    .member-card-photo-placeholder { width: 80px; height: 100px; margin: 0 auto 12px; border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.12); background: var(--color-surface-high); display: flex; align-items: center; justify-content: center; font-size: 36px; color: var(--color-surface-tint); }
+    .member-card-name { font-family: var(--font-headline); font-size: 16px; font-weight: 700; color: var(--color-on-surface); margin-bottom: 2px; }
+    .member-card-quote { font-family: var(--font-headline); font-size: 11px; color: var(--color-secondary); font-style: italic; margin-bottom: 8px; line-height: 1.3; }
+    .member-card-city { font-family: var(--font-mono); font-size: 11px; color: var(--color-on-surface-variant); display: flex; align-items: center; justify-content: center; gap: 3px; }
+    .member-online-badge { position: absolute; top: 10px; right: 10px; width: 10px; height: 10px; background: #2e7d32; border-radius: 50%; border: 2px solid var(--color-surface); }
+
+    /* ===================== DIALOGS ===================== */
+    dialog { border: none; padding: 0; background: transparent; max-width: 90vw; max-height: 90vh; overflow: auto; }
+    dialog::backdrop { background: rgba(30,20,10,0.6); backdrop-filter: blur(3px); }
+    dialog[open] { animation: dialog-in 0.2s ease; }
+    @keyframes dialog-in { from { opacity: 0; transform: translateY(-12px) scale(0.98); } to { opacity: 1; transform: none; } }
+    .dialog-paper { background: var(--color-surface); border: 1px solid var(--color-outline-variant); box-shadow: 0 8px 40px rgba(0,0,0,0.25); width: 580px; max-width: 100%; }
+    .dialog-paper.wide { width: 720px; }
+    .dialog-header { background: var(--color-primary); color: var(--color-on-primary); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .dialog-header-title { font-family: var(--font-headline); font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .dialog-close { background: none; border: none; color: var(--color-on-primary); cursor: pointer; font-size: 20px; display: flex; padding: 4px; border-radius: 2px; transition: background 0.15s; }
+    .dialog-close:hover { background: rgba(255,255,255,0.15); }
+    .dialog-body { padding: 24px; }
+    .dialog-footer { padding: 14px 24px; border-top: 1px solid var(--color-outline-variant); display: flex; justify-content: flex-end; gap: 10px; }
+
+    .compose-field { width: 100%; background: var(--color-surface-container); border: none; border-bottom: 2px solid var(--color-outline-variant); padding: 10px 12px; font-family: var(--font-body); font-size: 15px; color: var(--color-on-surface); transition: border-color 0.15s; margin-bottom: 14px; resize: none; }
+    .compose-field:focus { outline: none; border-bottom-color: var(--color-primary); background: var(--color-surface-low); }
+    .compose-field::placeholder { color: var(--color-on-surface-variant); }
+    .compose-title { font-family: var(--font-headline); font-size: 18px; font-weight: 600; }
+    .compose-body { min-height: 100px; }
+
+    /* Chat */
+    .chat-window { width: 400px; max-width: 100%; }
+    .chat-messages { height: 300px; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: var(--color-surface-container); }
+    .chat-msg { max-width: 75%; padding: 8px 12px; border-radius: 2px; font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+    .chat-msg.them { background: var(--color-surface-high); border: 1px solid var(--color-outline-variant); align-self: flex-start; }
+    .chat-msg.me { background: var(--color-primary); color: var(--color-on-primary); align-self: flex-end; }
+    .chat-time { font-family: var(--font-mono); font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 2px; display: block; text-align: right; }
+    .chat-msg.me .chat-time { color: rgba(255,255,255,0.5); }
+    .chat-input-wrap { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--color-outline-variant); background: var(--color-surface); }
+    .chat-input { flex: 1; border: 1px solid var(--color-outline-variant); background: var(--color-surface-container); padding: 8px 12px; font-family: var(--font-body); font-size: 14px; color: var(--color-on-surface); border-radius: var(--radius-sm); }
+    .chat-input:focus { outline: none; border-color: var(--color-primary); }
+
+    /* Comments */
+    .post-detail-body { font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: var(--color-on-surface); margin-bottom: 20px; }
+    .comment-item { display: flex; gap: 10px; margin-bottom: 12px; padding: 10px; background: var(--color-surface-container); border-left: 3px solid var(--color-primary-fixed); }
+    .comment-content { flex: 1; }
+    .comment-author { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px; }
+    .comment-text { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--color-on-surface); }
+    .comment-time { font-family: var(--font-mono); font-size: 10px; color: var(--color-on-surface-variant); }
+
+    /* Toast */
+    .toast-container { position: fixed; bottom: 80px; right: 24px; z-index: 200; display: flex; flex-direction: column; gap: 8px; }
+    .toast { background: var(--color-inverse-surface); color: #faf0d5; font-family: var(--font-mono); font-size: 13px; padding: 10px 20px; border-radius: var(--radius-sm); box-shadow: 0 4px 12px rgba(0,0,0,0.25); animation: toast-in 0.25s ease, toast-out 0.25s ease 2.5s forwards; max-width: 300px; }
+    @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes toast-out { from { opacity: 1; } to { opacity: 0; } }
+
+    /* Footer */
+    .site-footer { background: var(--color-surface-dim); border-top: 1px solid var(--color-outline-variant); padding: 32px 24px; text-align: center; margin-top: 40px; }
+    .footer-brand { font-family: var(--font-headline); font-size: 20px; font-weight: 700; color: var(--color-primary); font-style: italic; margin-bottom: 12px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); text-decoration: none; cursor: pointer; }
+    .footer-link:hover { color: var(--color-primary); text-decoration: underline; }
+    .footer-copy { font-family: var(--font-mono); font-size: 11px; color: var(--color-on-surface-variant); }
+
+    /* Misc */
+    .section-heading { font-family: var(--font-headline); font-size: 22px; font-weight: 800; color: var(--color-primary); letter-spacing: -0.01em; margin-bottom: 4px; }
+    .section-sub { font-family: var(--font-mono); font-size: 12px; color: var(--color-on-surface-variant); margin-bottom: 20px; }
+    .sidebar-stack { display: flex; flex-direction: column; gap: 16px; }
+    .dymo-tag { display: inline-block; background: var(--color-primary-fixed); color: var(--color-primary); font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; border-radius: 2px; transform: rotate(-1deg); box-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+    .dymo-tag.red { background: var(--color-secondary-container); color: var(--color-on-secondary-container); }
+
+    /* Mobile Styles */
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--color-primary); cursor: pointer; padding: 4px; align-items: center; justify-content: center; margin-left: 8px; }
+    .mobile-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-surface-highest); border-bottom: 2px solid var(--color-surface-tint); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 99; padding: 8px 0; }
+    .mobile-menu.active { display: flex; }
+    .mobile-nav-tab { padding: 12px 24px; font-family: var(--font-mono); font-size: 14px; color: var(--color-on-surface-variant); background: none; border: none; text-align: left; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .mobile-nav-tab:hover { background: var(--color-surface-variant); }
+    .mobile-nav-tab.active { color: var(--color-primary); font-weight: 700; background: var(--color-surface); border-left: 4px solid var(--color-primary); padding-left: 20px; }
+
+    /* Mobile Breakpoint */
+    @media (max-width: 800px) {
+      .home-layout { grid-template-columns: 1fr; }
+      .activities-layout { grid-template-columns: 1fr; }
+      .nav-tabs { display: none !important; }
+      .search-wrap.desktop { display: none !important; }
+      .hamburger-btn { display: flex !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="เมนูหลัก">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">เว็บบอร์ด พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์</a>
+    <div class="nav-tabs" role="tablist">
+      <button class="nav-tab active" role="tab" aria-selected="true" data-tab="home" id="tab-home" type="button" onclick="switchTab('home')">🏠 หน้าแรก</button>
+      <button class="nav-tab" role="tab" aria-selected="false" data-tab="forum" id="tab-forum" type="button" onclick="switchTab('forum')">📖 กระดาน</button>
+      <button class="nav-tab" role="tab" aria-selected="false" data-tab="gallery" id="tab-gallery" type="button" onclick="switchTab('gallery')">📸 ความทรงจำ</button>
+      <button class="nav-tab" role="tab" aria-selected="false" data-tab="activities" id="tab-activities" type="button" onclick="switchTab('activities')">🎉 กิจกรรม</button>
+      <button class="nav-tab" role="tab" aria-selected="false" data-tab="members" id="tab-members" type="button" onclick="switchTab('members')">👥 สมาชิก</button>
+    </div>
+    <div class="nav-actions">
+      <div class="search-wrap desktop">
+        <span class="ms icon">search</span>
+        <input class="search-input" type="text" id="search-input" placeholder="ค้นหา..." aria-label="ค้นหา">
+      </div>
+      <button class="btn btn-primary" id="compose-btn">✏️ โพสต์</button>
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="เปิดเมนู" onclick="document.getElementById('mobile-menu').classList.toggle('active')"><span class="ms">menu</span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-nav-tab active" data-tab="home" onclick="switchTab('home'); document.getElementById('mobile-menu').classList.remove('active');">🏠 หน้าแรก</button>
+    <button class="mobile-nav-tab" data-tab="forum" onclick="switchTab('forum'); document.getElementById('mobile-menu').classList.remove('active');">📖 กระดาน</button>
+    <button class="mobile-nav-tab" data-tab="gallery" onclick="switchTab('gallery'); document.getElementById('mobile-menu').classList.remove('active');">📸 ความทรงจำ</button>
+    <button class="mobile-nav-tab" data-tab="activities" onclick="switchTab('activities'); document.getElementById('mobile-menu').classList.remove('active');">🎉 กิจกรรม</button>
+    <button class="mobile-nav-tab" data-tab="members" onclick="switchTab('members'); document.getElementById('mobile-menu').classList.remove('active');">👥 สมาชิก</button>
+  </div>
+</nav>
+
+<main class="page-wrapper">
+
+  <!-- HOME -->
+  <div class="tab-panel active" id="panel-home" role="tabpanel">
+    <div class="home-layout">
+      <aside class="sidebar-stack">
+        <div class="id-card">
+          <div class="id-card-pin"></div>
+          <div class="id-card-header">
+            <div class="id-card-year">ครอบครัวแสนย์โอ๋</div>
+            <div class="id-card-id">บัตรพ่อบ้าน: #FAM-01</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="photo-wrap">
+              <div class="tape tape-top"></div>
+              <div class="tape tape-bottom"></div>
+              <div class="id-photo-placeholder">👨</div>
+            </div>
+            <h2 class="id-name">พ่อแสนย์</h2>
+            <p class="id-quote">"เมียสั่งอะไรต้องทำ (ถ้าไม่อยากนอนนอกห้อง)"</p>
+          </div>
+          <div class="id-fields">
+            <div class="id-field"><span class="id-field-label">ตำแหน่ง:</span><span class="id-field-value">หัวหน้าครอบครัว (สายเปย์)</span></div>
+            <div class="id-field"><span class="id-field-label">สกิลพิเศษ:</span><span class="id-field-value">เล่นมุกแป้ก & ทำอาหาร</span></div>
+            <div class="id-field"><span class="id-field-label">สถานะ:</span><span class="id-field-value">ยอมแม่โอ๋ 100%</span></div>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;">
+            <button class="btn btn-ghost btn-sm" id="edit-profile-btn">✏️ แก้ไขโปรไฟล์</button>
+          </div>
+        </div>
+
+        <div class="chalkboard">
+          <div class="chalkboard-title">— สถิติรุ่น —</div>
+          <div class="chalk-stat"><span class="chalk-num" id="stat-members">42</span><span class="chalk-label">สมาชิก<br>ทั้งหมด</span></div>
+          <div class="chalk-stat"><span class="chalk-num" id="stat-posts">138</span><span class="chalk-label">โพสต์<br>ในกระดาน</span></div>
+          <div class="chalk-stat"><span class="chalk-num" id="stat-online">7</span><span class="chalk-label">ออนไลน์<br>ตอนนี้</span></div>
+        </div>
+
+        <div class="online-members">
+          <div class="online-title"><div class="online-dot"></div>ออนไลน์ตอนนี้</div>
+          <div id="online-members-list"></div>
+        </div>
+      </aside>
+
+      <section class="notebook-paper">
+        <div class="forum-header">
+          <h1 class="forum-title">📖 เรื่องป่วนล่าสุดในบ้าน</h1>
+          <button class="btn btn-ghost btn-sm" data-tab-target="forum">ดูทั้งหมด →</button>
+        </div>
+        <div id="home-posts-list"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- FORUM -->
+  <div class="tab-panel" id="panel-forum" role="tabpanel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div>
+        <h1 class="section-heading">📖 กระดานเมาท์มอยประจำบ้าน</h1>
+        <p class="section-sub">เรื่องราวตลกๆ มุกฮาๆ และเรื่องป่วนของ พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select class="compose-field" style="min-height:unset;padding:7px 12px;margin:0;width:auto;font-size:13px;" id="sort-select">
+          <option value="newest">ล่าสุด</option>
+          <option value="popular">ยอดนิยม</option>
+          <option value="comments">ความคิดเห็น</option>
+        </select>
+        <button class="btn btn-primary" id="compose-btn-forum">+ โพสต์ใหม่</button>
+      </div>
+    </div>
+    <div class="notebook-paper" style="transform:none;min-height:300px;">
+      <div id="forum-posts-list"></div>
+      <button class="load-more-btn" id="load-more-btn">โหลดโพสต์เก่ากว่า...</button>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="tab-panel" id="panel-gallery" role="tabpanel">
+    <div class="gallery-header">
+      <div>
+        <h1 class="gallery-title">📸 คลังภาพความทรงจำครอบครัว</h1>
+        <p class="gallery-subtitle">ภาพฮาๆ ทริปสนุกๆ และโมเมนต์ตลกๆ ของ พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์</p>
+      </div>
+      <button class="btn btn-primary" id="upload-photo-btn">📷 เพิ่มรูปภาพ</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="gallery-filter-bar">
+      <button class="filter-chip active" data-filter="all">🖼️ ทั้งหมด</button>
+      <button class="filter-chip" data-filter="mine">🚀 ของฉัน</button>
+      <button class="filter-chip" data-filter="popular">❤️ ยอดนิยม</button>
+      <button class="filter-chip" data-filter="recent">🕐 ล่าสุด</button>
+      <span class="gallery-count" id="gallery-count">0 ภาพ</span>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+
+  <!-- ACTIVITIES -->
+  <div class="tab-panel" id="panel-activities" role="tabpanel">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div>
+        <h1 class="section-heading" style="margin-bottom:4px;">🎉 นัดหมาย & ทริปครอบครัว</h1>
+        <p class="section-sub">นัดกินข้าว ทริปเที่ยวบ้าน และภารกิจป่วนประจำสัปดาห์</p>
+      </div>
+      <button class="btn btn-primary" id="create-event-btn" style="white-space:nowrap;">✏️ สร้างกิจกรรมใหม่</button>
+    </div>
+    <div class="activities-layout">
+      <div id="events-list"></div>
+      <aside>
+        <div class="mini-calendar">
+          <div class="cal-header">
+            <button class="btn" style="background:none;color:white;padding:4px 8px;font-size:18px;" id="cal-prev">‹</button>
+            <div class="cal-month" id="cal-month-label">สิงหาคม 2566</div>
+            <button class="btn" style="background:none;color:white;padding:4px 8px;font-size:18px;" id="cal-next">›</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-outline-variant);padding:16px;box-shadow:var(--shadow-card);">
+          <div class="chalkboard-title" style="color:var(--color-on-surface-variant);border-bottom-color:var(--color-outline-variant);margin-bottom:12px;">— กำลังจะมาถึง —</div>
+          <div id="upcoming-events"></div>
+        </div>
+        <button class="btn btn-primary" id="create-event-btn-aside" style="width:100%;margin-top:12px;">✏️ สร้างกิจกรรมใหม่</button>
+      </aside>
+    </div>
+  </div>
+
+  <!-- MEMBERS -->
+  <div class="tab-panel" id="panel-members" role="tabpanel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div>
+        <h1 class="section-heading">👥 สมาชิกครอบครัว & แก๊งป่วน</h1>
+        <p class="section-sub">พ่อแสนย์, แม่โอ๋, เจน่า, โนอาห์ และสมาชิกกิตติมศักดิ์</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <div class="search-wrap">
+          <span class="ms icon">search</span>
+          <input class="search-input" type="text" id="member-search" placeholder="ค้นหาสมาชิกบ้าน..." style="width:200px;">
+        </div>
+        <button class="btn btn-primary" id="add-member-btn" style="white-space:nowrap;">👤+ เพิ่มสมาชิก</button>
+      </div>
+    </div>
+    <div class="members-grid" id="members-grid"></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-brand">เว็บบอร์ด พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์</div>
+  <div class="footer-links">
+    <a class="footer-link" href="#">คลังข้อมูล</a>
+    <a class="footer-link" href="#">นโยบายความเป็นส่วนตัว</a>
+    <a class="footer-link" href="#">ติดต่อผู้ดูแลระบบ</a>
+    <a class="footer-link" href="#">ช่วยเหลือ</a>
+  </div>
+  <div class="footer-copy">© 2026 เว็บบอร์ด พ่อแสนย์ แม่โอ๋ เจน่า โนอาห์ — สงวนลิขสิทธิ์</div>
+</footer>
+
+
+
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<!-- ADD MEMBER DIALOG -->
+<dialog id="add-member-dialog" closedby="any">
+  <div class="dialog-paper" style="width:520px;">
+    <div class="dialog-header">
+      <div class="dialog-header-title">👤 เพิ่มสมาชิกในครอบครัว</div>
+      <button class="dialog-close" id="add-member-close">✕</button>
+    </div>
+    <div class="dialog-body" style="max-height:75vh;overflow-y:auto;">
+      <!-- Emoji selector -->
+      <label class="form-label">เลือกสัญลักษณ์ / อิโมจิประจำตัว</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="member-emoji-grid">
+        <span class="dymo-tag red emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👨">👨</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👩">👩</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👧">👧</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👦">👦</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="🐶">🐶</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👵">👵</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="👴">👴</span>
+        <span class="dymo-tag emoji-choice" style="font-size:20px;cursor:pointer;padding:4px 10px;" data-emoji="🐱">🐱</span>
+      </div>
+
+      <!-- Name -->
+      <label class="form-label" for="add-member-name">ชื่อ - ฉายา *</label>
+      <input type="text" class="compose-field compose-title" id="add-member-name" placeholder="เช่น อากงสายปาร์ตี้" maxlength="60">
+
+      <!-- Quote -->
+      <label class="form-label" for="add-member-quote">สโลแกนประจำตัว</label>
+      <input type="text" class="compose-field" id="add-member-quote" placeholder='เช่น "เรื่องกินไว้ใจผม"' maxlength="80">
+
+      <div class="form-row">
+        <div>
+          <label class="form-label" for="add-member-city">พิกัดปัจจุบัน *</label>
+          <input type="text" class="compose-field" id="add-member-city" placeholder="เช่น ห้องครัว / บ้านแสนย์โอ๋" maxlength="40" style="margin-bottom:0;">
+        </div>
+        <div>
+          <label class="form-label" for="add-member-club">ตำแหน่งในบ้าน</label>
+          <input type="text" class="compose-field" id="add-member-club" placeholder="เช่น แผนกทำความสะอาด" maxlength="40" style="margin-bottom:0;">
+        </div>
+      </div>
+
+      <label class="form-label" for="add-member-fav" style="margin-top:14px;">ของโปรด / งานอดิเรก</label>
+      <input type="text" class="compose-field" id="add-member-fav" placeholder="เช่น หมูกระทะ, ดูซีรีส์" maxlength="40">
+
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-ghost btn-sm" id="add-member-cancel">ยกเลิก</button>
+      <button class="btn btn-primary" id="add-member-submit">👤+ บันทึกสมาชิก</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- CREATE EVENT DIALOG -->
+<dialog id="create-event-dialog" closedby="any">
+  <div class="dialog-paper" style="width:600px;">
+    <div class="dialog-header">
+      <div class="dialog-header-title">✏️ สร้างกิจกรรมใหม่</div>
+      <button class="dialog-close" id="create-event-close">✕</button>
+    </div>
+    <div class="dialog-body" style="max-height:75vh;overflow-y:auto;">
+
+      <!-- Event Type -->
+      <label class="form-label">ประเภทกิจกรรม</label>
+      <div class="event-type-grid" id="event-type-grid">
+        <button class="event-type-btn selected" data-type="งานเลี้ยงรุ่น" data-emoji="🎉" type="button">
+          <span class="type-icon">🎉</span>งานเลี้ยงรุ่น
+        </button>
+        <button class="event-type-btn" data-type="ปิกนิก" data-emoji="🌿" type="button">
+          <span class="type-icon">🌿</span>ปิกนิก / กลางแจ้ง
+        </button>
+        <button class="event-type-btn" data-type="ออนไลน์" data-emoji="💻" type="button">
+          <span class="type-icon">💻</span>ออนไลน์ / Zoom
+        </button>
+        <button class="event-type-btn" data-type="กีฬา" data-emoji="⚽" type="button">
+          <span class="type-icon">⚽</span>กีฬา / แข่งขัน
+        </button>
+        <button class="event-type-btn" data-type="อาหาร" data-emoji="🍽️" type="button">
+          <span class="type-icon">🍽️</span>รับประทานอาหาร
+        </button>
+        <button class="event-type-btn" data-type="อื่นๆ" data-emoji="📌" type="button">
+          <span class="type-icon">📌</span>อื่นๆ
+        </button>
+      </div>
+
+      <!-- Title -->
+      <label class="form-label" for="ev-title">ชื่อกิจกรรม *</label>
+      <input type="text" class="compose-field compose-title" id="ev-title" placeholder="เช่น งานเลี้ยงรุ่นครบรอบ 25 ปี 🎉" maxlength="80" autocomplete="off">
+
+      <!-- Date & Time -->
+      <div class="form-row">
+        <div>
+          <label class="form-label" for="ev-date">วันที่จัดงาน *</label>
+          <input type="date" class="compose-field" id="ev-date" style="margin-bottom:0;">
+        </div>
+        <div>
+          <label class="form-label" for="ev-time-start">เวลา *</label>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="time" class="compose-field" id="ev-time-start" style="margin-bottom:0;flex:1;">
+            <span style="font-family:var(--font-mono);font-size:13px;color:var(--color-on-surface-variant);">—</span>
+            <input type="time" class="compose-field" id="ev-time-end" style="margin-bottom:0;flex:1;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <label class="form-label" for="ev-location" style="margin-top:14px;">สถานที่</label>
+      <input type="text" class="compose-field" id="ev-location" placeholder="เช่น โรงแรม The Old School, กรุงเทพฯ / Zoom Meeting" maxlength="120" autocomplete="off">
+
+      <!-- Description -->
+      <label class="form-label" for="ev-body">รายละเอียดเพิ่มเติม</label>
+      <textarea class="compose-field compose-body" id="ev-body" placeholder="บอกรายละเอียด สิ่งที่ต้องเตรียม หรือข้อมูลสำคัญอื่นๆ..."></textarea>
+
+      <!-- Preview Strip -->
+      <div id="ev-preview" style="display:none;border:1px dashed var(--color-outline-variant);padding:12px 16px;background:var(--color-surface-container);font-family:var(--font-mono);font-size:12px;">
+        <div style="font-weight:700;color:var(--color-primary);margin-bottom:4px;">📋 ตัวอย่างกิจกรรม</div>
+        <div id="ev-preview-title" style="font-family:var(--font-headline);font-size:16px;font-weight:700;color:var(--color-primary);margin-bottom:2px;"></div>
+        <div id="ev-preview-meta" style="color:var(--color-on-surface-variant);"></div>
+      </div>
+
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-ghost btn-sm" id="create-event-cancel">ยกเลิก</button>
+      <button class="btn btn-primary" id="create-event-submit">🎉 เผยแพร่กิจกรรม</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- DIALOGS -->
+<dialog id="compose-dialog" closedby="any">
+  <div class="dialog-paper">
+    <div class="dialog-header">
+      <div class="dialog-header-title">✏️ โพสต์เรื่องป่วนในบ้าน</div>
+      <button class="dialog-close" id="compose-dialog-close">✕</button>
+    </div>
+    <div class="dialog-body">
+      <input type="text" class="compose-field compose-title" id="compose-title" placeholder="หัวข้อเรื่องฮาๆ..." maxlength="120">
+      <textarea class="compose-field compose-body" id="compose-body" placeholder="ฟ้องแม่โอ๋ / เล่ามุกตลกพ่อแสนย์ / หรือเรื่องป่วนๆ ของเจน่า โนอาห์ ที่นี่..."></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="dymo-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">เรื่องป่วน</span>
+        <span class="dymo-tag red" style="cursor:pointer;" onclick="this.classList.toggle('red')">พ่อบ้านใจกล้า</span>
+        <span class="dymo-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">แม่โอ๋สายช้อป</span>
+        <span class="dymo-tag red" style="cursor:pointer;" onclick="this.classList.toggle('red')">มุกตลก</span>
+        <span class="dymo-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">เรื่องกินเรื่องใหญ่</span>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-ghost btn-sm" id="compose-cancel">ยกเลิก</button>
+      <button class="btn btn-primary" id="compose-submit">📨 โพสต์เลย</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="post-dialog" closedby="any">
+  <div class="dialog-paper">
+    <div class="dialog-header">
+      <div class="dialog-header-title">📌 <span id="post-dialog-title-text">โพสต์</span></div>
+      <button class="dialog-close" id="post-dialog-close">✕</button>
+    </div>
+    <div class="dialog-body" style="max-height:65vh;overflow-y:auto;">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-on-surface-variant);margin-bottom:4px;" id="post-dialog-date"></div>
+      <div class="post-author-chip" style="margin-bottom:12px;">
+        <div class="author-avatar" id="post-dialog-avatar"></div>
+        <span class="author-name" id="post-dialog-author"></span>
+        <span class="dymo-tag" id="post-dialog-tag" style="font-size:11px;"></span>
+      </div>
+      <div class="post-detail-body" id="post-dialog-body"></div>
+      <div style="display:flex;gap:12px;margin-bottom:20px;">
+        <button class="post-action-btn" id="post-dialog-like-btn" onclick="dialogLike()">
+          ❤️ <span id="post-dialog-like-count">0</span> ถูกใจ
+        </button>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--color-primary);margin-bottom:10px;border-bottom:1px solid var(--color-outline-variant);padding-bottom:8px;">
+        💬 ความคิดเห็น (<span id="post-dialog-comment-count">0</span>)
+      </div>
+      <div class="comment-list" id="post-dialog-comments"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <div class="author-avatar" style="flex-shrink:0;width:30px;height:30px;">🚀</div>
+        <input type="text" class="compose-field" id="comment-input" placeholder="เขียนความคิดเห็น..." style="margin:0;padding:8px 12px;font-size:14px;flex:1;">
+        <button class="btn btn-primary btn-sm" id="comment-submit" style="align-self:flex-end;">ส่ง</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="chat-dialog" closedby="any">
+  <div class="dialog-paper chat-window">
+    <div class="dialog-header">
+      <div class="dialog-header-title">
+        <div class="author-avatar" id="chat-partner-avatar" style="width:28px;height:28px;"></div>
+        <span id="chat-partner-name">สนทนา</span>
+      </div>
+      <button class="dialog-close" id="chat-dialog-close">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input-wrap">
+      <input class="chat-input" type="text" id="chat-input" placeholder="พิมพ์ข้อความ...">
+      <button class="btn btn-primary btn-sm" id="chat-send">📨</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="lightbox-dialog" closedby="any">
+  <div class="dialog-paper wide" style="background:var(--color-inverse-surface);max-width:700px;">
+    <!-- Header -->
+    <div class="dialog-header" style="background:rgba(0,0,0,0.5);">
+      <div class="dialog-header-title" style="flex:1;min-width:0;">
+        📷 <span id="lightbox-title-text" style="font-size:15px;">ภาพ</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="btn btn-sm" id="lightbox-prev-btn" style="background:rgba(255,255,255,0.12);color:white;padding:4px 10px;font-size:16px;" aria-label="ภาพก่อนหน้า">‹</button>
+        <span id="lightbox-index" style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);">1/9</span>
+        <button class="btn btn-sm" id="lightbox-next-btn" style="background:rgba(255,255,255,0.12);color:white;padding:4px 10px;font-size:16px;" aria-label="ภาพถัดไป">›</button>
+        <button class="dialog-close" id="lightbox-close">✕</button>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div id="lightbox-img-container"></div>
+
+    <!-- Caption + Meta -->
+    <div style="padding:12px 16px 8px;">
+      <div style="font-family:var(--font-headline);font-size:16px;font-weight:700;color:rgba(255,255,255,0.92);" id="lightbox-caption"></div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;" id="lightbox-meta"></div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:10px;padding:8px 16px;border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);">
+      <button class="btn btn-sm" id="lightbox-like-btn" style="background:rgba(255,255,255,0.1);color:white;">
+        ❤️ ถูกใจ (<span id="lightbox-like-count">0</span>)
+      </button>
+      <button class="btn btn-sm" id="lightbox-delete-btn" style="background:rgba(172,50,49,0.3);color:#ffb3ae;display:none;">
+        🗑️ ลบรูป
+      </button>
+    </div>
+
+    <!-- Comments -->
+    <div class="lb-comments" id="lightbox-comments" aria-live="polite"></div>
+    <div class="lb-input-wrap">
+      <div class="author-avatar" style="width:26px;height:26px;flex-shrink:0;">🚀</div>
+      <input class="lb-input" type="text" id="lb-comment-input" placeholder="แสดงความคิดเห็นเกี่ยวกับภาพนี้...">
+      <button class="btn btn-primary btn-sm" id="lb-comment-submit">ส่ง</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Upload Photo Dialog -->
+<dialog id="upload-dialog" closedby="any">
+  <div class="dialog-paper" style="width:560px;">
+    <div class="dialog-header">
+      <div class="dialog-header-title">📷 เพิ่มรูปความทรงจำ</div>
+      <button class="dialog-close" id="upload-dialog-close">✕</button>
+    </div>
+    <div class="dialog-body">
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="upload-zone" role="button" aria-label="พื้นที่อัปโหลดรูปภาพ">
+        <input type="file" id="file-input" accept="image/*" multiple aria-label="เลือกไฟล์รูปภาพ">
+        <span class="upload-zone-icon">📷</span>
+        <div class="upload-zone-text">ลากรูปมาวางที่นี่</div>
+        <div class="upload-zone-sub">หรือ คลิกเพื่อเลือกไฟล์ · รองรับ JPG, PNG, GIF, WEBP</div>
+      </div>
+
+      <!-- Preview -->
+      <div id="upload-preview-wrap" style="display:none;margin-top:20px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);margin-bottom:10px;text-align:center;">ตัวอย่างภาพ Polaroid</div>
+        <div class="photo-preview-polaroid">
+          <img id="upload-preview-img" class="photo-preview-img" src="" alt="ตัวอย่างรูปภาพ">
+        </div>
+        <div style="margin-top:20px;">
+          <input type="text" class="compose-field" id="upload-caption" placeholder="คำบรรยายภาพ (เช่น คืนงานพรอม, ค่ายวิทยาศาสตร์...)" maxlength="80" aria-label="คำบรรยายภาพ">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+            <span style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);">แท็ก:</span>
+            <span class="dymo-tag upload-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">วัยเรียน</span>
+            <span class="dymo-tag upload-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">งานพรอม</span>
+            <span class="dymo-tag upload-tag red" style="cursor:pointer;" onclick="this.classList.toggle('red')">ตลก</span>
+            <span class="dymo-tag upload-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">กิจกรรม</span>
+            <span class="dymo-tag upload-tag" style="cursor:pointer;" onclick="this.classList.toggle('red')">กีฬาสี</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-file queue -->
+      <div id="upload-queue" style="display:none;margin-top:16px;"></div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-ghost btn-sm" id="upload-cancel">ยกเลิก</button>
+      <button class="btn btn-primary" id="upload-submit" disabled>
+        📤 โพสต์รูปภาพ
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="member-dialog" closedby="any">
+  <div class="dialog-paper">
+    <div class="dialog-header">
+      <div class="dialog-header-title">👤 โปรไฟล์สมาชิก</div>
+      <button class="dialog-close" id="member-dialog-close">✕</button>
+    </div>
+    <div class="dialog-body" style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="text-align:center;flex-shrink:0;">
+        <div class="id-photo-placeholder" id="member-dialog-avatar" style="margin:0 auto 12px;font-size:48px;width:90px;height:110px;"></div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-on-surface-variant);" id="member-dialog-id"></div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-family:var(--font-headline);font-size:22px;font-weight:700;color:var(--color-primary);margin-bottom:4px;" id="member-dialog-name"></div>
+        <div style="font-family:var(--font-headline);font-size:13px;color:var(--color-secondary);font-style:italic;margin-bottom:14px;" id="member-dialog-quote"></div>
+        <div class="id-fields">
+          <div class="id-field"><span class="id-field-label">พิกัด:</span><span class="id-field-value" id="member-dialog-city"></span></div>
+          <div class="id-field"><span class="id-field-label">ตำแหน่ง:</span><span class="id-field-value" id="member-dialog-club"></span></div>
+          <div class="id-field"><span class="id-field-label">ของโปรด:</span><span class="id-field-value" id="member-dialog-fav"></span></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:16px;">
+          <button class="btn btn-primary btn-sm" id="member-dialog-chat">💬 ส่งข้อความ</button>
+          <button class="btn btn-ghost btn-sm" onclick="closeDialog('member-dialog')">ปิด</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Firebase SDK (v10 compat scripts for standalone HTML) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+<script>
+// ====================================================
+//  FIREBASE INITIALIZATION
+// ====================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyA7aX3ryqOeU2gM6mGAmksZ5Ca7pP9FlHc",
+  authDomain: "chatvidme.firebaseapp.com",
+  projectId: "chatvidme",
+  storageBucket: "chatvidme.firebasestorage.app",
+  messagingSenderId: "362977682885",
+  appId: "1:362977682885:web:31a8ed6f74f145e58817ac",
+  measurementId: "G-6WHTF49W65"
+};
+
+let db = null;
+let analytics = null;
+let storage = null;
+
+try {
+  if (typeof firebase !== 'undefined') {
+    firebase.initializeApp(firebaseConfig);
+    if (firebase.analytics) analytics = firebase.analytics();
+    if (firebase.firestore) db = firebase.firestore();
+    if (firebase.storage) storage = firebase.storage();
+    console.log("🔥 Firebase initialized successfully for chatvidme!");
+  }
+} catch (e) {
+  console.warn("Firebase initialization notice:", e);
+}
+
+// ====================================================
+//  DATA
+// ====================================================
+let MEMBERS = [
+  { id:'#FAM-01', name:'พ่อแสนย์', quote:'"เมียสั่งอะไรต้องทำ (ถ้าอยากมีชีวิตรอด)"', city:'บ้านแสนย์โอ๋', club:'ชมรมพ่อบ้านใจกล้า', fav:'หมูกระทะ & มุกแป้ก', emoji:'👨', online:true },
+  { id:'#FAM-02', name:'แม่โอ๋', quote:'"บอสใหญ่ของบ้าน ใครขัดใจโดนงดเงินทอน"', city:'บ้านแสนย์โอ๋', club:'ชมรมสายช้อป & คอนโทรลบ้าน', fav:'F ของออนไลน์', emoji:'👩', online:true },
+  { id:'#FAM-03', name:'เจน่า', quote:'"เต้น TikTok จนพ่อคิดว่าไฟช็อต 💃"', city:'ห้องนอนเจน่า', club:'ดาว TikTok ประจำบ้าน', fav:'คาเฟ่ & ชานมไข่มุก', emoji:'👧', online:true },
+  { id:'#FAM-04', name:'โนอาห์', quote:'"ผักกินแล้วขม ขอแลกเป็นไอติมได้ไหมแม่ 🎮"', city:'ห้องเกมโนอาห์', club:'เซียน ROBLOX ประจำบ้าน', fav:'ROBLOX & ขนม', emoji:'👦', online:true },
+  { id:'#FAM-05', name:'เจ้าตูบโฮ่งโฮ่ง', quote:'"งานหลักคือขโมยขนมโนอาห์ 🐶"', city:'สนามหน้าบ้าน', club:'นักทำลายรองเท้าพ่อแสนย์', fav:'กระดูกไก่ & วิ่งไล่แมว', emoji:'🐶', online:true },
+  { id:'#FAM-06', name:'อาม่าสายเปย์', quote:'"แอบแจกอั่งเปาหลาน ห้ามบอกแม่โอ๋นะ 👵"', city:'กรุงเทพฯ', club:'ชมรมให้ท้ายหลาน', fav:'ขนมเปี๊ยะ & ซีรีส์จีน', emoji:'👵', online:false },
+];
+
+let POSTS = [
+  { id:1, author:'แม่โอ๋', authorEmoji:'👩', date:'วันนี้ — 10:45 น.', title:'ใครเปิดแอร์ทิ้งไว้ 16 องศาแล้วห่มผ้านวม?! ❄️', body:'ขอสารภาพมาด่วน! แม่เปิดประตูห้องนอนไปลมจับ นึกว่าอยู่ขั้วโลกเหนือ! ค่าไฟเดือนนี้ พ่อแสนย์ เป็นคนจ่ายนะ บอกไว้ก่อนเลย! 555', likes:18, comments:[{author:'พ่อแสนย์',emoji:'👨',text:'เหงื่อซึมเลยครับบอส เดี๋ยวไปปรับเป็น 25 องศาเดี๋ยวนี้ 😂',time:'11:02 น.'},{author:'โนอาห์',emoji:'👦',text:'ผมปัดความรับผิดชอบ พี่เจน่าเป็นคนเปิดครับ!',time:'11:15 น.'},{author:'เจน่า',emoji:'👧',text:'โนอาห์โกหก! พ่อแสนย์นั่นแหละขั้วโลกเหนือตัวจริง!',time:'11:30 น.'}], tag:'เรื่องป่วน', liked:false },
+  { id:2, author:'พ่อแสนย์', authorEmoji:'👨', date:'เมื่อวาน — 19:20 น.', title:'ความลับของพ่อบ้าน: กล่องพลาโมกล่องใหม่ 🤖', body:'แม่โอ๋ถามว่ากล่องใหญ่ขนาดนี้เท่าไหร่... พ่อบอกไป 190 บาทถ้วน! (ตัด 0 ข้างหลังออกไป 2 ตัว) ลูกๆ อย่าหลุดปากบอกแม่เด็ดขาดนะ ไม่งั้นพ่อได้ไปนอนม้านั่งสนามหน้าบ้านแน่ๆ 5555', likes:25, comments:[{author:'เจน่า',emoji:'👧',text:'โอนชานมไข่มุกมา 1 แก้ว ไม่งั้นหนูจะฟ้องแม่โอ๋เดี๋ยวนี้ 🧋',time:'19:30 น.'},{author:'โนอาห์',emoji:'👦',text:'ผมขอเครื่องนินเทนโด แล้วจะช่วยซ่อนกล่องให้ครับพ่อ 🎮',time:'19:45 น.'},{author:'แม่โอ๋',emoji:'👩',text:'พ่อแสนย์... แม่เห็นโพสต์นี้นะคะ เย็นนี้เจอกัน! 🧹',time:'20:00 น.'}], tag:'พ่อบ้านใจกล้า', liked:false },
+  { id:3, author:'เจน่า', authorEmoji:'👧', date:'2 วันก่อน — 16:00 น.', title:'คลิปเต้นแกล้งพ่อแสนย์ตอนหลับ วิวพุ่ง 1 แสนแล้ว! 🤣', body:'พ่อแสนย์นอนหลับอ้าปากกรนจังหวะลงล็อกพอดี หนูเลยเปิดเพลงเต้นข้างๆ แล้วถ่ายลง TikTok คนเม้นบอกว่าพ่อจังหวะแป๊ะมาก 555555', likes:32, comments:[{author:'พ่อแสนย์',emoji:'👨',text:'หล่อแบบไม่ตั้งใจนะเนี่ย เสียทรงหมดเลยลูก!',time:'16:20 น.'},{author:'แม่โอ๋',emoji:'👩',text:'แม่กดแชร์ลงเฟซบุ๊กให้เพื่อนๆ แม่ดูแล้วลูก ฮามากกกก 555',time:'16:45 น.'}], tag:'มุกตลก', liked:false },
+  { id:4, author:'โนอาห์', authorEmoji:'👦', date:'3 วันก่อน — 12:30 น.', title:'ขอประท้วง! ทำไมผมต้องกินบล็อกโคลี่ด้วย?! 🥦', body:'ผักสีเขียวมันคือยาพิษชัดๆ กินแล้วขมมาก ขอแลกเปลี่ยน: ถ้าผมกินบล็อกโคลี่ 1 ชิ้น แม่โอ๋ต้องให้อนุญาตผมเล่น ROBLOX เพิ่ม 2 ชั่วโมงนะครับ!', likes:12, comments:[{author:'แม่โอ๋',emoji:'👩',text:'ไม่มีการต่อรองค่ะลูก กินผักให้หมดจานก่อนเลย!',time:'12:45 น.'},{author:'เจ้าตูบโฮ่งโฮ่ง',emoji:'🐶',text:'โยนมาทางนี้ได้นะโนอาห์ โฮ่ง!',time:'13:00 น.'}], tag:'เรื่องกินเรื่องใหญ่', liked:false },
+];
+
+let PHOTOS = [
+  { id:1, emoji:'🚗', caption:"พ่อแสนย์ขับรถหลงทาง", author:'แม่โอ๋', authorEmoji:'👩', date:'สิงหาคม 2566', likes:45, liked:false, color:'#d4c9a8', isReal:false, isMine:false, comments:[
+    {author:'พ่อแสนย์',emoji:'👨',text:'GPS มันบอกให้เลี้ยวเข้าสวนกล้วยจริงๆ นะ!',time:'14:00 น.'},
+    {author:'เจน่า',emoji:'👧',text:'ติดอยู่กลางป่ากล้วยไป 2 ชั่วโมง 555',time:'14:15 น.'}
+  ] },
+  { id:2, emoji:'🍕', caption:'ศึกแย่งพิซซ่าชิ้นสุดท้าย', author:'เจน่า', authorEmoji:'👧', date:'กันยายน 2566', likes:38, liked:false, color:'#c9d4b8', isReal:false, isMine:true, comments:[
+    {author:'โนอาห์',emoji:'👦',text:'พี่เจน่าโกง! อ้างว่าเป็นพี่เลยได้กิน!',time:'18:00 น.'},
+    {author:'แม่โอ๋',emoji:'👩',text:'ครั้งหน้าแม่จะตัดแบ่งเป็นครึ่งชิ้นให้!',time:'18:30 น.'}
+  ] },
+  { id:3, emoji:'🛍️', caption:'กองกล่องพัสดุแม่โอ๋', author:'พ่อแสนย์', authorEmoji:'👨', date:'ตุลาคม 2566', likes:50, liked:false, color:'#b8c9d4', isReal:false, isMine:false, comments:[
+    {author:'แม่โอ๋',emoji:'👩',text:'อันนี้ของจำเป็นทั้งนั้นนะคะพ่อ!',time:'20:00 น.'}
+  ] },
+  { id:4, emoji:'💃', caption:'พ่อแสนย์พยายามเต้น TikTok', author:'เจน่า', authorEmoji:'👧', date:'ตุลาคม 2566', likes:62, liked:false, color:'#d4b8c9', isReal:false, isMine:false, comments:[
+    {author:'โนอาห์',emoji:'👦',text:'พ่อเต้นเหมือนหุ่นยนต์กวาดพื้นเลย 555',time:'10:00 น.'}
+  ] },
+  { id:5, emoji:'🎮', caption:'โนอาห์หัวร้อนเล่นเกมแพ้', author:'แม่โอ๋', authorEmoji:'👩', date:'พฤศจิกายน 2566', likes:29, liked:false, color:'#c9b8d4', isReal:false, isMine:false, comments:[] },
+  { id:6, emoji:'🍲', caption:'มื้อหมูกระทะเยียวยาจิตใจ', author:'พ่อแสนย์', authorEmoji:'👨', date:'พฤศจิกายน 2566', likes:41, liked:false, color:'#d4c9b8', isReal:false, isMine:false, comments:[] },
+  { id:7, emoji:'🎂', caption:'เซอร์ไพรส์วันเกิดแม่โอ๋', author:'พ่อแสนย์', authorEmoji:'👨', date:'พฤศจิกายน 2566', likes:75, liked:false, color:'#b8d4c9', isReal:false, isMine:false, comments:[] },
+  { id:8, emoji:'🏖️', caption:'ทริปทะเลหัวหินป่วนๆ', author:'เจน่า', authorEmoji:'👧', date:'ธันวาคม 2566', likes:33, liked:false, color:'#d4b8b8', isReal:false, isMine:false, comments:[] },
+  { id:9, emoji:'😴', caption:'พ่อแสนย์นอนหลับหน้าทีวี', author:'แม่โอ๋', authorEmoji:'👩', date:'ธันวาคม 2566', likes:55, liked:false, color:'#c9c9d4', isReal:false, isMine:false, comments:[] },
+];
+let photoNextId = 10;
+let currentFilter = 'all';
+
+let EVENTS = [
+  { id:1, badge:'กำลังจะมาถึง', title:'ทริปครอบครัวลุยทะเลหัวหิน 🏖️', date:'15 ธันวาคม 2569', time:'08:00 — 18:00 น.', location:'หัวหิน, ประจวบคีรีขันธ์', body:'จัดกระเป๋าเตรียมลุย! พ่อแสนย์เป็นคนขับรถ (ห้ามหลงทางอีกนะ) แม่โอ๋จองที่พักเรียบร้อย เจน่ากับโนอาห์เตรียมชุดว่ายน้ำสุดจี๊ดได้เลย!', going:['พ','ม','จ','น'], goingCount:4, day:15 },
+  { id:2, badge:'ใหม่', title:'มื้อใหญ่ชาบูบุฟเฟต์วันอาทิตย์ 🍲', date:'5 พฤศจิกายน 2569', time:'12:00 — 14:00 น.', location:'ร้านชาบูชิ สยาม', body:'นัดฉลองวันหยุดประจำสัปดาห์! เงื่อนไข: พ่อแสนย์เป็นคนเลี้ยงมื้อนี้ ห้ามใครกินน้อยเด็ดขาด!', going:['พ','ม','จ','น','อ'], goingCount:5, day:5 },
+  { id:3, badge:'สำคัญมาก', title:'วันเกิดแม่โอ๋ 🎂 (ห้ามลืมเด็ดขาด!)', date:'22 ตุลาคม 2569', time:'18:00 — 21:00 น.', location:'ห้องรับแขกบ้านแสนย์โอ๋', body:'ภารกิจระดับชาติ: พ่อแสนย์ซื้อเค้กไอศกรีม เจน่าทำการ์ดแฮนด์เมด โนอาห์เป็นเด็กดี 1 วันเต็มๆ ใครทำให้แม่โอ๋โมโหถือว่าแพ้!', going:['พ','จ','น'], goingCount:3, day:22 },
+];
+
+// ====================================================
+//  STATE
+// ====================================================
+let currentPostId = null, currentPhotoId = null, chatPartnerId = null;
+const chatHistories = {};
+
+// ====================================================
+//  TABS
+// ====================================================
+function switchTab(name) {
+  if (!name) return;
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  document.querySelectorAll('.mobile-nav-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  const tab = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
+  document.querySelectorAll('.mobile-nav-tab[data-tab="' + name + '"]').forEach(t => t.classList.add('active'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.switchTab = switchTab;
+
+// Delegation for tab switches
+document.addEventListener('click', (e) => {
+  const tabBtn = e.target.closest('[data-tab]');
+  if (tabBtn && tabBtn.dataset.tab) {
+    switchTab(tabBtn.dataset.tab);
+    return;
+  }
+  const targetBtn = e.target.closest('[data-tab-target]');
+  if (targetBtn && targetBtn.dataset.tabTarget) {
+    switchTab(targetBtn.dataset.tabTarget);
+    return;
+  }
+});
+
+// ====================================================
+//  DIALOG HELPERS
+// ====================================================
+function openDialog(id) { const d = document.getElementById(id); if (d) d.showModal(); }
+function closeDialog(id) { const d = document.getElementById(id); if (d) d.close(); }
+window.openDialog = openDialog;
+window.closeDialog = closeDialog;
+
+// Light-dismiss fallback for Safari
+document.querySelectorAll('dialog').forEach(dialog => {
+  if (!('closedBy' in HTMLDialogElement.prototype)) {
+    dialog.addEventListener('click', (e) => {
+      if (e.target !== dialog) return;
+      const r = dialog.getBoundingClientRect();
+      const inside = r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width;
+      if (!inside) dialog.close();
+    });
+  }
+});
+document.querySelectorAll('.dialog-close').forEach(btn => {
+  btn.addEventListener('click', () => { const d = btn.closest('dialog'); if (d) d.close(); });
+});
+
+// ====================================================
+//  RENDER ONLINE MEMBERS
+// ====================================================
+function renderOnlineMembers() {
+  const c = document.getElementById('online-members-list');
+  c.innerHTML = MEMBERS.filter(m => m.online).map(m =>
+    `<button class="member-chip" onclick="openChat('${m.id}')">`+
+    `<div class="member-avatar-sm">${m.emoji}</div>${m.name.split(' ')[0]}</button>`
+  ).join('');
+}
+
+// ====================================================
+//  RENDER POSTS
+// ====================================================
+function postHTML(post, prefix) {
+  return `<article class="post-card" id="${prefix}-${post.id}">
+    <div class="post-pin" aria-hidden="true">📌</div>
+    <div class="post-date">${post.date}</div>
+    <div class="post-author-chip">
+      <div class="author-avatar">${post.authorEmoji}</div>
+      <span class="author-name">${post.author}</span>
+      <span class="dymo-tag" style="font-size:10px;padding:1px 6px;">${post.tag}</span>
+    </div>
+    <h3 class="post-title" onclick="openPost(${post.id})">${post.title}</h3>
+    <p class="post-body">${post.body}</p>
+    <div class="post-actions">
+      <button class="post-action-btn${post.liked?' liked':''}" onclick="toggleLike(${post.id})">
+        ${post.liked?'❤️':'🤍'} <span class="lc-${post.id}">${post.likes}</span> ถูกใจ
+      </button>
+      <button class="post-action-btn" onclick="openPost(${post.id})">
+        💬 ${post.comments.length} ความคิดเห็น
+      </button>
+    </div>
+  </article>`;
+}
+function renderHomePosts() {
+  document.getElementById('home-posts-list').innerHTML = POSTS.slice(0,3).map(p=>postHTML(p,'hp')).join('');
+}
+function renderForumPosts() {
+  document.getElementById('forum-posts-list').innerHTML = POSTS.map(p=>postHTML(p,'fp')).join('');
+}
+
+// ====================================================
+//  RENDER GALLERY
+// ====================================================
+function getFilteredPhotos() {
+  let photos = [...PHOTOS];
+  if (currentFilter === 'mine') photos = photos.filter(p => p.isMine);
+  else if (currentFilter === 'popular') photos = [...photos].sort((a,b) => b.likes - a.likes);
+  else if (currentFilter === 'recent') photos = [...photos].reverse();
+  return photos;
+}
+
+function renderGallery() {
+  const photos = getFilteredPhotos();
+  const grid = document.getElementById('gallery-grid');
+  const countEl = document.getElementById('gallery-count');
+  if (countEl) countEl.textContent = photos.length + ' ภาพ';
+
+  if (photos.length === 0) {
+    grid.innerHTML = `<div class="gallery-empty" style="column-span:all;">
+      <span class="gallery-empty-icon">📷</span>
+      <div class="gallery-empty-text">ยังไม่มีภาพในหมวดนี้</div>
+      <div style="font-size:13px;margin-top:4px;">เป็นคนแรกที่แบ่งปันความทรงจำ!</div>
+    </div>`;
+    return;
+  }
+
+  const rotations = ['-2deg','1.5deg','3deg','-1.5deg','2.5deg','-3deg'];
+  grid.innerHTML = photos.map((ph, idx) => {
+    const rot = rotations[idx % rotations.length];
+    const imgContent = ph.isReal
+      ? `<img class="polaroid-img" src="${ph.src}" alt="${ph.caption}" loading="lazy">`
+      : `<div class="polaroid-img emoji-img" style="background:${ph.color};">${ph.emoji}</div>`;
+    return `<div class="polaroid-wrap" id="pw-${ph.id}">
+      <div class="polaroid-tape"></div>
+      <div class="polaroid-img-wrap" style="transform:rotate(${rot});"
+           onclick="openLightbox(${ph.id})" role="button" tabindex="0"
+           aria-label="ดูภาพ ${ph.caption}"
+           onkeydown="if(event.key==='Enter')openLightbox(${ph.id})">
+        ${imgContent}
+        <div class="polaroid-caption">${ph.caption}</div>
+        <div class="polaroid-author">📌 ${ph.author}</div>
+        <div class="polaroid-likes">❤️ ${ph.likes}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ====================================================
+//  RENDER EVENTS
+// ====================================================
+let eventNextId = 4;
+
+function renderEvents() {
+  const list = document.getElementById('events-list');
+  if (EVENTS.length === 0) {
+    list.innerHTML = `<div class="events-empty">
+      <span class="events-empty-icon">📅</span>
+      <div class="events-empty-text">ยังไม่มีกิจกรรม</div>
+      <div style="font-size:13px;margin-top:4px;">เป็นคนแรกที่สร้างกิจกรรม!</div>
+    </div>`;
+  } else {
+    list.innerHTML = EVENTS.map(ev =>
+      `<article class="event-card" id="ev-${ev.id}">
+        <div class="event-badge${ev.isMine ? ' mine' : ''}">${ev.badge}</div>
+        ${ev.isMine ? `<button class="event-delete-btn" onclick="deleteEvent(${ev.id})" title="ลบกิจกรรม" aria-label="ลบกิจกรรม">🗑️</button>` : ''}
+        <h2 class="event-title">${ev.title}</h2>
+        <div class="event-meta">
+          <span>📅 ${ev.date}</span>
+          <span>⏰ ${ev.time}</span>
+          <span>📍 ${ev.location}</span>
+        </div>
+        <p class="event-body">${ev.body || ''}</p>
+        <div class="event-going">
+          <div class="going-avatars">${(ev.going||[]).map(a=>`<div class="going-avatar">${a}</div>`).join('')}</div>
+          <span class="going-count" id="going-count-${ev.id}">${ev.goingCount} คนจะไป</span>
+          <button class="btn btn-primary btn-sm" onclick="rsvpEvent(${ev.id},this)">✅ RSVP</button>
+        </div>
+      </article>`
+    ).join('');
+  }
+
+  document.getElementById('upcoming-events').innerHTML = EVENTS.length === 0
+    ? `<div style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);text-align:center;">ยังไม่มีกิจกรรม</div>`
+    : EVENTS.map(ev =>
+        `<div style="margin-bottom:14px;display:flex;gap:10px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--color-on-surface-variant);min-width:28px;text-align:center;">${ev.day}</div>
+          <div>
+            <div style="font-family:var(--font-headline);font-size:13px;font-weight:700;color:var(--color-primary);">${ev.title.substring(0,22)}${ev.title.length>22?'...':''}</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--color-on-surface-variant);">${ev.time}</div>
+          </div>
+        </div>`
+      ).join('');
+}
+
+function deleteEvent(id) {
+  const idx = EVENTS.findIndex(e=>e.id===id);
+  if (idx === -1) return;
+  if (!EVENTS[idx].isMine) return;
+  EVENTS.splice(idx,1);
+  renderEvents();
+  renderCalendar();
+  showToast('🗑️ ลบกิจกรรมแล้ว');
+}
+
+// ====================================================
+//  CREATE EVENT DIALOG
+// ====================================================
+let selectedEventType = { type: 'งานเลี้ยงรุ่น', emoji: '🎉' };
+
+function openCreateEventDialog() {
+  // Reset fields
+  document.getElementById('ev-title').value = '';
+  document.getElementById('ev-date').value = '';
+  document.getElementById('ev-time-start').value = '';
+  document.getElementById('ev-time-end').value = '';
+  document.getElementById('ev-location').value = '';
+  document.getElementById('ev-body').value = '';
+  document.getElementById('ev-preview').style.display = 'none';
+  // Reset type selection
+  selectedEventType = { type: 'งานเลี้ยงรุ่น', emoji: '🎉' };
+  document.querySelectorAll('.event-type-btn').forEach(b => b.classList.remove('selected'));
+  const firstBtn = document.querySelector('.event-type-btn');
+  if (firstBtn) firstBtn.classList.add('selected');
+  openDialog('create-event-dialog');
+}
+
+// Open buttons
+const createEvBtn = document.getElementById('create-event-btn');
+if (createEvBtn) createEvBtn.addEventListener('click', openCreateEventDialog);
+const createEvBtnAside = document.getElementById('create-event-btn-aside');
+if (createEvBtnAside) createEvBtnAside.addEventListener('click', openCreateEventDialog);
+const createEvCancel = document.getElementById('create-event-cancel');
+if (createEvCancel) createEvCancel.addEventListener('click', () => closeDialog('create-event-dialog'));
+
+// Type selector
+const evTypeGrid = document.getElementById('event-type-grid');
+if (evTypeGrid) {
+  evTypeGrid.addEventListener('click', e => {
+    const btn = e.target.closest('.event-type-btn');
+    if (!btn) return;
+    document.querySelectorAll('.event-type-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedEventType = { type: btn.dataset.type, emoji: btn.dataset.emoji };
+    updateEvPreview();
+  });
+}
+
+// Live preview on input
+['ev-title','ev-date','ev-time-start','ev-time-end','ev-location'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateEvPreview);
+});
+
+function updateEvPreview() {
+  const titleEl = document.getElementById('ev-title');
+  if (!titleEl) return;
+  const title = titleEl.value.trim();
+  const dateVal = document.getElementById('ev-date')?.value;
+  const timeStart = document.getElementById('ev-time-start')?.value;
+  const timeEnd = document.getElementById('ev-time-end')?.value;
+  const location = document.getElementById('ev-location')?.value.trim();
+  const previewEl = document.getElementById('ev-preview');
+
+  if (!title) { if (previewEl) previewEl.style.display = 'none'; return; }
+
+  const dateStr = dateVal ? new Date(dateVal).toLocaleDateString('th-TH', {day:'numeric',month:'long',year:'numeric'}) : 'ยังไม่ระบุวันที่';
+  const timeStr = timeStart ? (timeEnd ? `${timeStart} — ${timeEnd} น.` : `${timeStart} น.`) : 'ยังไม่ระบุเวลา';
+  const locStr = location || 'ยังไม่ระบุสถานที่';
+
+  const previewTitle = document.getElementById('ev-preview-title');
+  if (previewTitle) previewTitle.textContent = `${selectedEventType.emoji} ${title}`;
+  const previewMeta = document.getElementById('ev-preview-meta');
+  if (previewMeta) previewMeta.textContent = `📅 ${dateStr} · ⏰ ${timeStr} · 📍 ${locStr}`;
+  if (previewEl) previewEl.style.display = 'block';
+}
+
+// Submit
+const createEvSubmit = document.getElementById('create-event-submit');
+if (createEvSubmit) {
+  createEvSubmit.addEventListener('click', () => {
+    const title = document.getElementById('ev-title')?.value.trim();
+    const dateVal = document.getElementById('ev-date')?.value;
+    const timeStart = document.getElementById('ev-time-start')?.value;
+
+    if (!title) { showToast('❌ กรุณาใส่ชื่อกิจกรรม'); document.getElementById('ev-title')?.focus(); return; }
+    if (!dateVal) { showToast('❌ กรุณาเลือกวันที่จัดงาน'); document.getElementById('ev-date')?.focus(); return; }
+    if (!timeStart) { showToast('❌ กรุณาระบุเวลาเริ่มต้น'); document.getElementById('ev-time-start')?.focus(); return; }
+
+    const timeEnd = document.getElementById('ev-time-end')?.value;
+    const location = document.getElementById('ev-location')?.value.trim() || 'ยังไม่ระบุสถานที่';
+    const body = document.getElementById('ev-body')?.value.trim() || '';
+
+    const dateObj = new Date(dateVal);
+    const dateStr = dateObj.toLocaleDateString('th-TH', { day:'numeric', month:'long', year:'numeric' });
+    const timeStr = timeEnd ? `${timeStart} — ${timeEnd} น.` : `${timeStart} น.`;
+    const dayNum = dateObj.getDate();
+
+    const newEv = {
+      id: Date.now(),
+      badge: 'ใหม่',
+      title: `${selectedEventType.emoji} ${title}`,
+      date: dateStr,
+      time: timeStr,
+      location,
+      body,
+      going: ['อ'],
+      goingCount: 1,
+      day: dayNum,
+      isMine: true,
+      timestamp: firebase.firestore?.FieldValue?.serverTimestamp ? firebase.firestore.FieldValue.serverTimestamp() : Date.now()
+    };
+
+    EVENTS.unshift(newEv);
+    closeDialog('create-event-dialog');
+    renderEvents();
+    renderCalendar();
+    showToast('🎉 เผยแพร่กิจกรรมแล้ว!');
+    if (db) {
+      db.collection('events').add(newEv).catch(e => console.warn("Firestore save event error:", e));
+    }
+  });
+}
+
+// ====================================================
+//  CALENDAR
+// ====================================================
+let calY=2569, calM=11;
+const TH_MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  if (!label) return;
+  label.textContent = TH_MONTHS[calM-1]+' '+calY;
+  const days=['อา','จ','อ','พ','พฤ','ศ','ส'];
+  let h=days.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
+  const first=(calM+calY*12)%7;
+  const dim=[31,28,31,30,31,30,31,31,30,31,30,31][calM-1];
+  const eventDays = new Set(EVENTS.map(e=>e.day));
+  for(let i=0;i<first;i++) h+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=dim;d++) {
+    const today = d===11&&calM===8&&calY===2569;
+    h+=`<div class="cal-day${today?' today':''}${eventDays.has(d)?' has-event':''}">${d}</div>`;
+  }
+  const grid = document.getElementById('cal-grid');
+  if (grid) grid.innerHTML=h;
+}
+const calPrev = document.getElementById('cal-prev');
+if (calPrev) calPrev.addEventListener('click',()=>{ calM--; if(calM<1){calM=12;calY--;} renderCalendar(); });
+const calNext = document.getElementById('cal-next');
+if (calNext) calNext.addEventListener('click',()=>{ calM++; if(calM>12){calM=1;calY++;} renderCalendar(); });
+
+// ====================================================
+//  COMPOSE
+// ====================================================
+const composeBtn = document.getElementById('compose-btn');
+if (composeBtn) composeBtn.addEventListener('click', ()=>openDialog('compose-dialog'));
+const composeBtnForum = document.getElementById('compose-btn-forum');
+if (composeBtnForum) composeBtnForum.addEventListener('click', ()=>openDialog('compose-dialog'));
+const composeClose = document.getElementById('compose-dialog-close');
+if (composeClose) composeClose.addEventListener('click', ()=>closeDialog('compose-dialog'));
+const composeCancel = document.getElementById('compose-cancel');
+if (composeCancel) composeCancel.addEventListener('click', ()=>closeDialog('compose-dialog'));
+const composeSubmit = document.getElementById('compose-submit');
+if (composeSubmit) composeSubmit.addEventListener('click', submitPost);
+
+function submitPost() {
+  const title = document.getElementById('compose-title').value.trim();
+  const body = document.getElementById('compose-body').value.trim();
+  if (!title||!body) { showToast('❌ กรุณากรอกหัวข้อและเนื้อหา'); return; }
+  const newPost = { id:Date.now(), author:'พ่อแสนย์', authorEmoji:'👨', date:'วันนี้ — เพิ่งโพสต์', title, body, likes:0, comments:[], tag:'เรื่องป่วน', liked:false, timestamp: firebase.firestore?.FieldValue?.serverTimestamp ? firebase.firestore.FieldValue.serverTimestamp() : Date.now() };
+  POSTS.unshift(newPost);
+  renderHomePosts(); renderForumPosts();
+  document.getElementById('compose-title').value = '';
+  document.getElementById('compose-body').value = '';
+  closeDialog('compose-dialog');
+  showToast('✏️ โพสต์เรื่องป่วนเรียบร้อย!');
+  const statPosts = document.getElementById('stat-posts');
+  if (statPosts) statPosts.textContent = parseInt(statPosts.textContent||'0')+1;
+
+  if (db) {
+    db.collection('posts').add(newPost).catch(e => console.warn("Firestore save post error:", e));
+  }
+}
+
+
+// ====================================================
+//  RENDER MEMBERS
+// ====================================================
+function renderMembers(filter='') {
+  const filtered = MEMBERS.filter(m => m.name.toLowerCase().includes(filter.toLowerCase()) || m.city.toLowerCase().includes(filter.toLowerCase()));
+  const c = document.getElementById('members-grid');
+  if (!filtered.length) { c.innerHTML = '<div style="font-family:var(--font-mono);font-size:13px;color:var(--color-on-surface-variant);grid-column:1/-1;text-align:center;padding:40px;">ไม่พบสมาชิก</div>'; return; }
+  c.innerHTML = filtered.map(m =>
+    `<div class="member-card" onclick="openMember('${m.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openMember('${m.id}')">
+      ${m.online?'<div class="member-online-badge"></div>':''}
+      <div class="member-card-photo-placeholder">${m.emoji}</div>
+      <div class="member-card-name">${m.name}</div>
+      <div class="member-card-quote">${m.quote}</div>
+      <div class="member-card-city">📍 ${m.city}</div>
+    </div>`
+  ).join('');
+}
+// ====================================================
+//  ADD MEMBER DIALOG & LOGIC
+// ====================================================
+let selectedMemberEmoji = '👨';
+let memberNextId = 4033;
+
+function openAddMemberDialog() {
+  document.getElementById('add-member-name').value = '';
+  document.getElementById('add-member-quote').value = '';
+  document.getElementById('add-member-city').value = '';
+  document.getElementById('add-member-club').value = '';
+  document.getElementById('add-member-fav').value = '';
+  
+  // reset emoji selection
+  selectedMemberEmoji = '👨';
+  document.querySelectorAll('#member-emoji-grid .emoji-choice').forEach(el => el.classList.remove('red'));
+  const firstEmoji = document.querySelector('#member-emoji-grid .emoji-choice');
+  if (firstEmoji) firstEmoji.classList.add('red');
+  
+  openDialog('add-member-dialog');
+}
+
+const addMemberBtn = document.getElementById('add-member-btn');
+if (addMemberBtn) addMemberBtn.addEventListener('click', openAddMemberDialog);
+
+const addMemberClose = document.getElementById('add-member-close');
+if (addMemberClose) addMemberClose.addEventListener('click', () => closeDialog('add-member-dialog'));
+
+const addMemberCancel = document.getElementById('add-member-cancel');
+if (addMemberCancel) addMemberCancel.addEventListener('click', () => closeDialog('add-member-dialog'));
+
+// Emoji selector handler
+document.getElementById('member-emoji-grid').addEventListener('click', (e) => {
+  const choice = e.target.closest('.emoji-choice');
+  if (!choice) return;
+  document.querySelectorAll('#member-emoji-grid .emoji-choice').forEach(el => el.classList.remove('red'));
+  choice.classList.add('red');
+  selectedMemberEmoji = choice.dataset.emoji || '👨';
+});
+
+// Submit new member
+document.getElementById('add-member-submit').addEventListener('click', () => {
+  const name = document.getElementById('add-member-name').value.trim();
+  const quote = document.getElementById('add-member-quote').value.trim();
+  const city = document.getElementById('add-member-city').value.trim();
+  const club = document.getElementById('add-member-club').value.trim() || 'สมาชิกบ้าน';
+  const fav = document.getElementById('add-member-fav').value.trim() || 'ความสุขในบ้าน';
+
+  if (!name) {
+    showToast('❌ กรุณากรอกชื่อ/ฉายาสมาชิก');
+    document.getElementById('add-member-name').focus();
+    return;
+  }
+  if (!city) {
+    showToast('❌ กรุณากรอกพิกัดปัจจุบัน');
+    document.getElementById('add-member-city').focus();
+    return;
+  }
+
+  const newMember = {
+    id: `#FAM-${memberNextId++}`,
+    name: name,
+    quote: quote ? `"${quote}"` : '"สมาชิกแก๊งบ้านแสนย์โอ๋"',
+    city: city,
+    club: club,
+    fav: fav,
+    emoji: selectedMemberEmoji,
+    online: true
+  };
+
+  MEMBERS.unshift(newMember);
+  closeDialog('add-member-dialog');
+  renderMembers();
+  renderOnlineMembers();
+
+  // Update stat counter
+  const statMembers = document.getElementById('stat-members');
+  if (statMembers) {
+    statMembers.textContent = parseInt(statMembers.textContent || '0') + 1;
+  }
+
+  showToast(`🎉 ต้อนรับสมาชิกใหม่ "${name}" เข้าสู่บ้าน!`);
+
+  if (db) {
+    db.collection('members').add(newMember).catch(e => console.warn("Firestore save member error:", e));
+  }
+});
+
+// Lightbox comment
+document.getElementById('lb-comment-submit').addEventListener('click', submitLbComment);
+document.getElementById('lb-comment-input').addEventListener('keydown', e=>{ if(e.key==='Enter') submitLbComment(); });
+function submitLbComment() {
+  const input = document.getElementById('lb-comment-input');
+  const text = input.value.trim();
+  if (!text || !currentPhotoId) return;
+  const ph = PHOTOS.find(p=>p.id===currentPhotoId);
+  if (!ph) return;
+  if (!ph.comments) ph.comments = [];
+  const now = new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})+' น.';
+  ph.comments.push({ author:'พ่อแสนย์', emoji:'👨', text, time:now });
+  input.value = '';
+  renderLightboxComments(ph);
+  showToast('💬 ส่งความคิดเห็นแล้ว!');
+}
+
+// ====================================================
+//  UPLOAD PHOTO DIALOG
+// ====================================================
+let uploadFiles = []; // [{file, dataUrl, caption}]
+
+document.getElementById('upload-photo-btn').addEventListener('click', ()=>openUploadDialog());
+function openUploadDialog() {
+  uploadFiles = [];
+  document.getElementById('upload-preview-wrap').style.display = 'none';
+  document.getElementById('upload-queue').style.display = 'none';
+  document.getElementById('upload-queue').innerHTML = '';
+  document.getElementById('upload-caption').value = '';
+  document.getElementById('upload-submit').disabled = true;
+  document.getElementById('upload-zone').querySelector('.upload-zone-icon').textContent = '📷';
+  const previewImg = document.getElementById('upload-preview-img');
+  if (previewImg) previewImg.src = '';
+  openDialog('upload-dialog');
+}
+
+document.getElementById('upload-cancel').addEventListener('click', ()=>closeDialog('upload-dialog'));
+
+// File input change
+document.getElementById('file-input').addEventListener('change', e=>{
+  handleFiles(e.target.files);
+});
+
+// Drag and drop
+const uploadZone = document.getElementById('upload-zone');
+uploadZone.addEventListener('dragover', e=>{ e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', ()=>uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e=>{
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  if (!files || files.length === 0) return;
+  uploadFiles = [];
+  const file = files[0]; // Primary file for single preview
+  if (!file.type.startsWith('image/')) { showToast('❌ รองรับเฉพาะไฟล์รูปภาพ'); return; }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    uploadFiles.push({ file, dataUrl });
+
+    // Show preview
+    const previewWrap = document.getElementById('upload-preview-wrap');
+    const previewImg = document.getElementById('upload-preview-img');
+    previewImg.src = dataUrl;
+    previewWrap.style.display = 'block';
+    document.getElementById('upload-submit').disabled = false;
+    document.getElementById('upload-zone').querySelector('.upload-zone-icon').textContent = '✅';
+
+    // If multiple files, show queue
+    if (files.length > 1) {
+      showMultiQueue(files);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function showMultiQueue(files) {
+  const queue = document.getElementById('upload-queue');
+  queue.style.display = 'block';
+  queue.innerHTML = `<div style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);margin-bottom:8px;">ไฟล์ที่เลือก (${files.length} ไฟล์):</div>` +
+    Array.from(files).map((f,i) =>
+      `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--color-outline-variant);font-family:var(--font-mono);font-size:12px;">
+        <span>${i===0?'📷':'📸'}</span>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</span>
+        <span style="color:var(--color-on-surface-variant);">${(f.size/1024).toFixed(0)} KB</span>
+      </div>`
+    ).join('');
+  // Queue multiple uploads
+  uploadFiles = [];
+  const promises = Array.from(files).slice(0, 10).map(f => new Promise(res => {
+    if (!f.type.startsWith('image/')) return res(null);
+    const r = new FileReader();
+    r.onload = ev => res({ file:f, dataUrl:ev.target.result });
+    r.readAsDataURL(f);
+  }));
+  Promise.all(promises).then(results => {
+    uploadFiles = results.filter(Boolean);
+  });
+}
+
+// Submit upload
+document.getElementById('upload-submit').addEventListener('click', ()=>{
+  if (uploadFiles.length === 0) { showToast('กรุณาเลือกรูปภาพก่อน'); return; }
+  const caption = document.getElementById('upload-caption').value.trim() || 'ความทรงจำ';
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('th-TH', {day:'numeric', month:'long', year:'numeric'});
+
+  uploadFiles.forEach((f, i) => {
+    const newPhoto = {
+      id: Date.now() + i,
+      src: f.dataUrl,
+      isReal: true,
+      caption: uploadFiles.length > 1 ? `${caption} (${i+1}/${uploadFiles.length})` : caption,
+      author: 'พ่อแสนย์',
+      authorEmoji: '👨',
+      date: dateStr,
+      likes: 0,
+      liked: false,
+      isMine: true,
+      color: '#f0e8d8',
+      emoji: '📷',
+      comments: [],
+      timestamp: firebase.firestore?.FieldValue?.serverTimestamp ? firebase.firestore.FieldValue.serverTimestamp() : Date.now()
+    };
+    PHOTOS.unshift(newPhoto);
+    if (db) {
+      db.collection('photos').add(newPhoto).catch(e => console.warn("Firestore save photo error:", e));
+    }
+  });
+
+  closeDialog('upload-dialog');
+  renderGallery();
+  showToast(`📸 อัปโหลด ${uploadFiles.length} ภาพสำเร็จ!`);
+  uploadFiles = [];
+  const countEl = document.getElementById('gallery-count');
+  if (countEl) countEl.textContent = PHOTOS.length + ' ภาพ';
+});
+
+// ====================================================
+//  POST DETAIL
+// ====================================================
+function openPost(id) {
+  const post = POSTS.find(p=>p.id===id);
+  if (!post) return;
+  currentPostId = id;
+  document.getElementById('post-dialog-title-text').textContent = post.title;
+  document.getElementById('post-dialog-date').textContent = post.date;
+  document.getElementById('post-dialog-avatar').textContent = post.authorEmoji;
+  document.getElementById('post-dialog-author').textContent = post.author;
+  document.getElementById('post-dialog-body').textContent = post.body;
+  document.getElementById('post-dialog-like-count').textContent = post.likes;
+  document.getElementById('post-dialog-tag').textContent = post.tag;
+  document.getElementById('post-dialog-comment-count').textContent = post.comments.length;
+  renderComments(post);
+  openDialog('post-dialog');
+}
+function renderComments(post) {
+  const c = document.getElementById('post-dialog-comments');
+  if (!post.comments.length) { c.innerHTML='<div style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);padding:8px 0;">ยังไม่มีความคิดเห็น — เป็นคนแรกที่คอมเมนต์!</div>'; return; }
+  c.innerHTML = post.comments.map(cm =>
+    `<div class="comment-item">
+      <div class="author-avatar" style="width:28px;height:28px;flex-shrink:0;">${cm.emoji}</div>
+      <div class="comment-content">
+        <div class="comment-author">${cm.author} <span class="comment-time">${cm.time}</span></div>
+        <div class="comment-text">${cm.text}</div>
+      </div>
+    </div>`
+  ).join('');
+}
+function dialogLike() {
+  const post = POSTS.find(p=>p.id===currentPostId || (p.docId && p.docId===currentPostId));
+  if (!post) return;
+  post.liked = !post.liked;
+  post.likes += post.liked?1:-1;
+  document.getElementById('post-dialog-like-count').textContent = post.likes;
+  if (post.liked) showToast('❤️ ถูกใจโพสต์แล้ว!');
+  renderHomePosts(); renderForumPosts();
+  if (db && post.docId) {
+    db.collection('posts').doc(post.docId).update({ likes: post.likes, liked: post.liked }).catch(e=>console.warn(e));
+  }
+}
+document.getElementById('comment-submit').addEventListener('click', submitComment);
+document.getElementById('comment-input').addEventListener('keydown', e=>{ if(e.key==='Enter') submitComment(); });
+function submitComment() {
+  const input = document.getElementById('comment-input');
+  const text = input.value.trim();
+  if (!text||!currentPostId) return;
+  const post = POSTS.find(p=>p.id===currentPostId || (p.docId && p.docId===currentPostId));
+  if (!post) return;
+  post.comments.push({ author:'พ่อแสนย์', emoji:'👨', text, time:'เพิ่งส่ง' });
+  input.value='';
+  document.getElementById('post-dialog-comment-count').textContent = post.comments.length;
+  renderComments(post); renderHomePosts(); renderForumPosts();
+  showToast('💬 ส่งความคิดเห็นแล้ว!');
+  if (db && post.docId) {
+    db.collection('posts').doc(post.docId).update({ comments: post.comments }).catch(e=>console.warn(e));
+  }
+}
+
+function toggleLike(id) {
+  const post = POSTS.find(p=>p.id===id || (p.docId && p.docId===id));
+  if (!post) return;
+  post.liked = !post.liked;
+  post.likes += post.liked?1:-1;
+  renderHomePosts(); renderForumPosts();
+  if (post.liked) showToast('❤️ ถูกใจแล้ว!');
+  if (db && post.docId) {
+    db.collection('posts').doc(post.docId).update({ likes: post.likes, liked: post.liked }).catch(e=>console.warn(e));
+  }
+}
+
+// ====================================================
+//  LIGHTBOX
+// ====================================================
+function openLightbox(id) {
+  const photos = getFilteredPhotos();
+  const ph = PHOTOS.find(p=>p.id===id);
+  if (!ph) return;
+  currentPhotoId = id;
+  populateLightbox(ph, photos);
+  openDialog('lightbox-dialog');
+  setTimeout(()=>{
+    const msgs = document.getElementById('lightbox-comments');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+  }, 100);
+}
+
+function populateLightbox(ph, allPhotos) {
+  const photos = allPhotos || getFilteredPhotos();
+  const idx = photos.findIndex(p=>p.id===ph.id);
+  document.getElementById('lightbox-title-text').textContent = ph.caption;
+  document.getElementById('lightbox-caption').textContent = ph.caption;
+  document.getElementById('lightbox-meta').textContent = `โดย ${ph.authorEmoji || ''} ${ph.author} · ${ph.date}`;
+  document.getElementById('lightbox-like-count').textContent = ph.likes;
+  document.getElementById('lightbox-index').textContent = `${idx+1}/${photos.length}`;
+
+  // Image
+  const imgContainer = document.getElementById('lightbox-img-container');
+  if (ph.isReal) {
+    imgContainer.innerHTML = `<img class="lightbox-real-img" src="${ph.src}" alt="${ph.caption}">`;
+  } else {
+    imgContainer.innerHTML = `<div class="lightbox-emoji-img" style="background:${ph.color};">${ph.emoji}</div>`;
+  }
+
+  // Delete btn (only for own photos)
+  const delBtn = document.getElementById('lightbox-delete-btn');
+  delBtn.style.display = ph.isMine ? '' : 'none';
+
+  // Comments
+  renderLightboxComments(ph);
+}
+
+function renderLightboxComments(ph) {
+  const c = document.getElementById('lightbox-comments');
+  if (!ph.comments || ph.comments.length === 0) {
+    c.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;color:var(--color-on-surface-variant);padding:12px;text-align:center;">ยังไม่มีความคิดเห็น — เป็นคนแรกที่แสดงความคิดเห็น!</div>';
+    return;
+  }
+  c.innerHTML = ph.comments.map(cm =>
+    `<div class="lb-comment">
+      <div class="author-avatar" style="width:26px;height:26px;flex-shrink:0;">${cm.emoji}</div>
+      <div class="lb-comment-body">
+        <span class="lb-comment-author">${cm.author}</span>
+        <span class="lb-comment-time" style="margin-left:6px;">${cm.time}</span>
+        <div class="lb-comment-text">${cm.text}</div>
+      </div>
+    </div>`
+  ).join('');
+  c.scrollTop = c.scrollHeight;
+}
+
+// Lightbox like
+document.getElementById('lightbox-like-btn').addEventListener('click', ()=>{
+  const ph = PHOTOS.find(p=>p.id===currentPhotoId);
+  if (!ph) return;
+  ph.liked = !ph.liked; ph.likes += ph.liked?1:-1;
+  document.getElementById('lightbox-like-count').textContent = ph.likes;
+  if (ph.liked) showToast('❤️ ถูกใจภาพแล้ว!');
+  renderGallery();
+});
+
+// Lightbox delete
+document.getElementById('lightbox-delete-btn').addEventListener('click', ()=>{
+  if (!currentPhotoId) return;
+  const idx = PHOTOS.findIndex(p=>p.id===currentPhotoId);
+  if (idx === -1) return;
+  const ph = PHOTOS[idx];
+  if (!ph.isMine) return;
+  PHOTOS.splice(idx, 1);
+  closeDialog('lightbox-dialog');
+  renderGallery();
+  showToast('🗑️ ลบรูปภาพแล้ว');
+});
+
+// Lightbox prev/next
+document.getElementById('lightbox-prev-btn').addEventListener('click', ()=>{
+  const photos = getFilteredPhotos();
+  const idx = photos.findIndex(p=>p.id===currentPhotoId);
+  const prev = photos[(idx-1+photos.length)%photos.length];
+  currentPhotoId = prev.id;
+  populateLightbox(prev, photos);
+});
+document.getElementById('lightbox-next-btn').addEventListener('click', ()=>{
+  const photos = getFilteredPhotos();
+  const idx = photos.findIndex(p=>p.id===currentPhotoId);
+  const next = photos[(idx+1)%photos.length];
+  currentPhotoId = next.id;
+  populateLightbox(next, photos);
+});
+
+
+
+// Filter bar
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    currentFilter = chip.dataset.filter;
+    renderGallery();
+  });
+});
+
+// ====================================================
+//  CHAT
+// ====================================================
+function openChat(id) {
+  const m = MEMBERS.find(x=>x.id===id);
+  if (!m) return;
+  chatPartnerId = id;
+  const nameEl = document.getElementById('chat-partner-name');
+  if (nameEl) nameEl.textContent = m.name;
+  const avatarEl = document.getElementById('chat-partner-avatar');
+  if (avatarEl) avatarEl.textContent = m.emoji;
+  if (!chatHistories[id]) chatHistories[id] = [{ from:'them', text:`สวัสดี! ยินดีที่ได้คุยด้วยนะ 😊`, time:'20:00 น.' }];
+  renderChat(id);
+  openDialog('chat-dialog');
+}
+function renderChat(id) {
+  const c = document.getElementById('chat-messages');
+  if (!c) return;
+  c.innerHTML = (chatHistories[id]||[]).map(m=>
+    `<div class="chat-msg ${m.from==='me'?'me':'them'}">${m.text}<span class="chat-time">${m.time}</span></div>`
+  ).join('');
+  c.scrollTop = c.scrollHeight;
+}
+
+const chatSendBtn = document.getElementById('chat-send');
+if (chatSendBtn) chatSendBtn.addEventListener('click', sendChat);
+
+const chatInputEl = document.getElementById('chat-input');
+if (chatInputEl) chatInputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text||!chatPartnerId) return;
+  if (!chatHistories[chatPartnerId]) chatHistories[chatPartnerId]=[];
+  const now = new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})+' น.';
+  const msgObj = { partnerId: chatPartnerId, from:'me', text, time:now };
+  chatHistories[chatPartnerId].push(msgObj);
+  input.value=''; renderChat(chatPartnerId);
+
+  if (db) {
+    db.collection('chats').add(msgObj).catch(e=>console.warn(e));
+  }
+
+  setTimeout(()=>{
+    const replies=['555 จริงเหรอ!','โอ้โห จำได้ไหม?','😂','เห็นด้วยเลย!','เดี๋ยวคุยกันต่อนะ','โอเค จะไปนะ!'];
+    const replyMsg = { partnerId: chatPartnerId, from:'them', text:replies[Math.floor(Math.random()*replies.length)], time:new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})+' น.' };
+    chatHistories[chatPartnerId].push(replyMsg);
+    renderChat(chatPartnerId);
+    if (db) {
+      db.collection('chats').add(replyMsg).catch(e=>console.warn(e));
+    }
+  }, 1200);
+}
+
+// ====================================================
+//  MEMBER PROFILE
+// ====================================================
+function openMember(id) {
+  const m = MEMBERS.find(x=>x.id===id);
+  if (!m) return;
+  const avatarEl = document.getElementById('member-dialog-avatar');
+  if (avatarEl) avatarEl.textContent = m.emoji;
+  const idEl = document.getElementById('member-dialog-id');
+  if (idEl) idEl.textContent = m.id;
+  const nameEl = document.getElementById('member-dialog-name');
+  if (nameEl) nameEl.textContent = m.name;
+  const quoteEl = document.getElementById('member-dialog-quote');
+  if (quoteEl) quoteEl.textContent = m.quote;
+  const cityEl = document.getElementById('member-dialog-city');
+  if (cityEl) cityEl.textContent = m.city;
+  const clubEl = document.getElementById('member-dialog-club');
+  if (clubEl) clubEl.textContent = m.club;
+  const favEl = document.getElementById('member-dialog-fav');
+  if (favEl) favEl.textContent = m.fav;
+  const chatBtn = document.getElementById('member-dialog-chat');
+  if (chatBtn) chatBtn.onclick = ()=>{ closeDialog('member-dialog'); openChat(id); };
+  openDialog('member-dialog');
+}
+
+// ====================================================
+//  RSVP
+// ====================================================
+function rsvpEvent(id, btn) {
+  const ev = EVENTS.find(e=>e.id===id || (e.docId && e.docId===id));
+  if (!ev) return;
+  if (btn.dataset.rsvped) {
+    ev.goingCount--;
+    btn.dataset.rsvped='';
+    btn.textContent='✅ RSVP';
+    btn.style.background='';
+    showToast('ยกเลิก RSVP แล้ว');
+  } else {
+    ev.goingCount++;
+    btn.dataset.rsvped='1';
+    btn.innerHTML='✔️ ลงทะเบียนแล้ว!';
+    btn.style.background='var(--color-surface-tint)';
+    showToast('🎉 RSVP สำเร็จ! พบกันในงานนะ');
+  }
+  const gcEl = document.getElementById('going-count-'+id);
+  if (gcEl) gcEl.textContent = ev.goingCount+' คนจะไป';
+
+  if (db && ev.docId) {
+    db.collection('events').doc(ev.docId).update({ goingCount: ev.goingCount }).catch(e=>console.warn(e));
+  }
+}
+
+// ====================================================
+//  SORT
+// ====================================================
+const sortSelectEl = document.getElementById('sort-select');
+if (sortSelectEl) {
+  sortSelectEl.addEventListener('change', e=>{
+    if(e.target.value==='popular') POSTS.sort((a,b)=>b.likes-a.likes);
+    else if(e.target.value==='comments') POSTS.sort((a,b)=>b.comments.length-a.comments.length);
+    else POSTS.sort((a,b)=>b.id-a.id);
+    renderForumPosts();
+    showToast('เรียงลำดับแล้ว');
+  });
+}
+
+// ====================================================
+//  SEARCH & MISC
+// ====================================================
+const loadMoreBtn = document.getElementById('load-more-btn');
+if (loadMoreBtn) loadMoreBtn.addEventListener('click', ()=>{ showToast('📖 กำลังโหลด...'); setTimeout(()=>showToast('ไม่มีโพสต์เก่ากว่านี้แล้ว'),1500); });
+
+const searchInputEl = document.getElementById('search-input');
+if (searchInputEl) searchInputEl.addEventListener('input', e=>{ if(e.target.value.length>1) showToast('🔍 ค้นหา: '+e.target.value); });
+
+const memberSearchEl = document.getElementById('member-search');
+if (memberSearchEl) memberSearchEl.addEventListener('input', e=>renderMembers(e.target.value));
+
+const editProfileBtn = document.getElementById('edit-profile-btn');
+if (editProfileBtn) editProfileBtn.addEventListener('click', ()=>showToast('✏️ ฟีเจอร์แก้ไขโปรไฟล์กำลังพัฒนา'));
+
+// ====================================================
+//  TOAST
+// ====================================================
+function showToast(msg) {
+  const c = document.getElementById('toast-container');
+  if (!c) return;
+  const t = document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  c.appendChild(t);
+  setTimeout(()=>t.remove(), 2800);
+}
+
+// ====================================================
+//  FIREBASE REALTIME FIRESTORE SYNC
+// ====================================================
+function initFirebaseSync() {
+  if (!db) return;
+
+  // Realtime Posts Sync
+  db.collection('posts').onSnapshot((snapshot) => {
+    if (!snapshot.empty) {
+      const fbPosts = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        fbPosts.push({ ...d, docId: doc.id });
+      });
+      fbPosts.sort((a,b) => (b.id||0) - (a.id||0));
+      POSTS = fbPosts;
+      renderHomePosts();
+      renderForumPosts();
+      const statPosts = document.getElementById('stat-posts');
+      if (statPosts) statPosts.textContent = POSTS.length;
+    }
+  }, err => console.warn("Firestore posts sync notice:", err));
+
+  // Realtime Photos Sync
+  db.collection('photos').onSnapshot((snapshot) => {
+    if (!snapshot.empty) {
+      const fbPhotos = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        fbPhotos.push({ ...d, docId: doc.id });
+      });
+      fbPhotos.sort((a,b) => (b.id||0) - (a.id||0));
+      PHOTOS = fbPhotos;
+      renderGallery();
+    }
+  }, err => console.warn("Firestore photos sync notice:", err));
+
+  // Realtime Events Sync
+  db.collection('events').onSnapshot((snapshot) => {
+    if (!snapshot.empty) {
+      const fbEvents = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        fbEvents.push({ ...d, docId: doc.id });
+      });
+      fbEvents.sort((a,b) => (b.id||0) - (a.id||0));
+      EVENTS = fbEvents;
+      renderEvents();
+      renderCalendar();
+    }
+  }, err => console.warn("Firestore events sync notice:", err));
+
+  // Realtime Members Sync
+  db.collection('members').onSnapshot((snapshot) => {
+    if (!snapshot.empty) {
+      const fbMembers = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        fbMembers.push({ ...d, docId: doc.id });
+      });
+      MEMBERS = fbMembers;
+      renderMembers();
+      renderOnlineMembers();
+      const statMembers = document.getElementById('stat-members');
+      if (statMembers) statMembers.textContent = MEMBERS.length;
+    }
+  }, err => console.warn("Firestore members sync notice:", err));
+
+  // Realtime Chats Sync
+  db.collection('chats').onSnapshot((snapshot) => {
+    if (!snapshot.empty) {
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        if (d.partnerId) {
+          if (!chatHistories[d.partnerId]) chatHistories[d.partnerId] = [];
+          const exists = chatHistories[d.partnerId].some(m => m.docId === doc.id || (m.text === d.text && m.time === d.time && m.from === d.from));
+          if (!exists) {
+            chatHistories[d.partnerId].push({ ...d, docId: doc.id });
+          }
+        }
+      });
+      if (chatPartnerId) renderChat(chatPartnerId);
+    }
+  }, err => console.warn("Firestore chats sync notice:", err));
+}
+
+// ====================================================
+//  INIT
+// ====================================================
+function initApp() {
+  try { renderOnlineMembers(); } catch(e){ console.error('Error renderOnlineMembers:', e); }
+  try { renderHomePosts(); } catch(e){ console.error('Error renderHomePosts:', e); }
+  try { renderForumPosts(); } catch(e){ console.error('Error renderForumPosts:', e); }
+  try { renderGallery(); } catch(e){ console.error('Error renderGallery:', e); }
+  try { renderEvents(); } catch(e){ console.error('Error renderEvents:', e); }
+  try { renderMembers(); } catch(e){ console.error('Error renderMembers:', e); }
+  try { renderCalendar(); } catch(e){ console.error('Error renderCalendar:', e); }
+  try { initFirebaseSync(); } catch(e){ console.error('Error initFirebaseSync:', e); }
+  setTimeout(()=>showToast("🔥 เชื่อมต่อระบบคลาวด์ Firebase เรียบร้อย!"), 800);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+</script>
+</body>
+</html>
